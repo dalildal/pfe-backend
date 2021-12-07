@@ -38,6 +38,9 @@
           <span class="mr-2">Latest Release</span>
           <v-icon>mdi-open-in-new</v-icon>
         </v-btn>
+        <v-btn href="/fonction">
+          <span>Fonction</span>
+        </v-btn>
         <v-btn @click="$vuetify.theme.dark = !$vuetify.theme.dark" />
       </v-app-bar>
 
