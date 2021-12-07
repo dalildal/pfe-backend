@@ -1,0 +1,14 @@
+###TEST changeStateMerchandise
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+ 
+    "name": "jaezfazef",
+    "lastname": "feaz",
+    "campus": 43,
+    "email": "coczefezfo@email.com",
+    "password": "12zefzSSSS3"
+}
+
+###

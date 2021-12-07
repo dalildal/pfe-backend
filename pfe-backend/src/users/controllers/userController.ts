@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { UserDTO } from '../dto/userDto';
+import { UserDTO } from '../models/userDto';
+
 import { UserService } from '../services/userService';
 
 @Controller('user')
@@ -8,8 +9,8 @@ export class UserController {
     constructor(private userService:UserService){}
   
 @Get()
-findAll(): string {
-    return 'This action returns all the user';
+async getUsers() {
+    return await this.userService.getUsers();
   }
 
 @Get('/:id')
@@ -28,8 +29,9 @@ remove(@Param('id') id:String){
 }
 
 @Post()
-createUser(@Body() userdto : UserDTO){
-    return 'user';
+async createUser(@Body() userdto : UserDTO){
+    return await this.userService.create(userdto);
+
 }
 
 }
