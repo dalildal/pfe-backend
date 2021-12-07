@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [MongooseModule.forRoot()],
+  imports: [MongooseModule.forRoot('mongodb+srv://groupe10:<groupe1010>@vincimarket.rzddw.mongodb.net/VinciMarket?retryWrites=true&w=majority')],
   controllers: [AppController],
   providers: [AppService],
 })
