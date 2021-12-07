@@ -13,7 +13,7 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
-
+/*
 console.log('script loader');
 
 async function getData() {
@@ -29,3 +29,4 @@ window.onload = () => {
   }
   run();
 }
+*/
