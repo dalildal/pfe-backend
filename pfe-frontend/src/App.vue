@@ -1,54 +1,91 @@
 <template>
-  <v-app>
-    <v-card class="overflow">
-      <v-app-bar
+  <div id="app">
+  <v-app id="inspire">
+    <v-navigation-drawer
+        permanent
         app
-        color="primary"
-        shrink-on-scroll
-        dark
-        scroll-target="#scrolling-techniques-2"
-      >
-        <div class="d-flex align-center">
-          <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2"
-            contain
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-            transition="scale-transition"
-            width="40"
-          />
-
-          <v-img
-            alt="Vuetify Name"
-            class="shrink mt-1 hidden-sm-and-down"
-            contain
-            min-width="100"
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-            width="100"
-          />
-        </div>
-
-        <v-spacer></v-spacer>
-
-        <v-btn
-          href="https://github.com/vuetifyjs/vuetify/releases/latest"
-          target="_blank"
-          text
-        >
-          <span class="mr-2">Latest Release</span>
-          <v-icon>mdi-open-in-new</v-icon>
-        </v-btn>
-        <v-btn href="/fonction">
-          <span>Fonction</span>
-        </v-btn>
-        <v-btn @click="$vuetify.theme.dark = !$vuetify.theme.dark" />
-      </v-app-bar>
-
-      <v-main>
-        <router-view/>
-      </v-main>
-    </v-card>
+        width=80
+    >
+      <v-layout justify-space-between column fill-height>
+        <v-list> 
+          <v-list-item link href="#">
+            <v-list-item-icon>
+                <v-img
+                  src='./assets/home.png'
+                  max-width=50
+                  max-height=50
+                />
+            </v-list-item-icon>
+          </v-list-item>
+          <v-tooltip right>
+            <template v-slot:activator="{on, attrs}">
+              <v-list-item link href="/">
+                <v-list-item-icon>
+                      <v-icon color=#21bfe5 large v-bind="attrs" v-on="on">fas fa-shapes</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </template>
+            <span>Accueil</span>
+          </v-tooltip>
+          <v-tooltip right>
+            <template v-slot:activator="{on, attrs}">
+              <v-list-item link href="#">
+                <v-list-item-icon>
+                      <v-icon large v-bind="attrs" v-on="on">fas fa-shopping-cart</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </template>
+            <span>Panier</span>
+          </v-tooltip>
+        </v-list>
+        <v-list>
+          <v-tooltip right>
+            <template v-slot:activator="{on, attrs}">
+              <v-list-item @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+                <v-list-item-icon>
+                  <v-icon v-if="$vuetify.theme.dark" large v-bind="attrs" v-on="on">fas fa-moon</v-icon>
+                  <v-icon v-if="!$vuetify.theme.dark" large v-bind="attrs" v-on="on">fas fa-sun</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </template>
+            <span>Thème</span>
+          </v-tooltip>
+          <v-tooltip right>
+            <template v-slot:activator="{on, attrs}">
+              <v-list-item link href="/about">
+                <v-list-item-icon>
+                      <v-icon large v-bind="attrs" v-on="on">fas fa-info-circle</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </template>
+            <span>À propos de nous</span>
+          </v-tooltip>
+          <v-tooltip right>
+            <template v-slot:activator="{on, attrs}">
+              <v-list-item link href="#">
+                <v-list-item-icon>
+                      <v-icon large v-bind="attrs" v-on="on">fas fa-sign-out-alt</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </template>
+            <span>Déconnexion</span>
+          </v-tooltip>
+        </v-list>
+      </v-layout>
+    </v-navigation-drawer>
+    <v-content>
+      <v-container fluid>
+          <v-row class="fill-height">
+              <v-col>
+                  <transition name="fade">
+                      <router-view></router-view>
+                  </transition>
+              </v-col>
+          </v-row>
+      </v-container>
+    </v-content>
   </v-app>
+</div>
 </template>
 
 <script>

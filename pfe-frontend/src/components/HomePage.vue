@@ -1,5 +1,46 @@
 <template>
   <v-container>
+    <v-layout class="mb-5">
+      <v-autocomplete
+        v-model="select"
+        :loading="loading"
+        :items="items"
+        :search-input.sync="search"
+        cache-items
+        flat
+        hide-no-data
+        hide-details
+        label="Rechercher ..."
+        solo-inverted
+      ></v-autocomplete>
+      <v-spacer />
+      <v-tooltip bottom>
+        <template v-slot:activator="{on, attrs}">
+          <v-badge
+            bordered
+            color="error"
+            overlap
+            class="mt-2"
+          >
+            <v-btn icon v-bind="attrs" v-on="on">
+              <v-icon large>fas fa-bell</v-icon>
+            </v-btn>
+          </v-badge>
+        </template>
+        <span>Notifications</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{on, attrs}">
+          <row class="ml-10" v-bind="attrs" v-on="on">
+            <v-avatar color=#21bfe5>JV</v-avatar>
+            <span class="mx-2">Julien</span>
+            <v-icon>fas fa-caret-down</v-icon>
+          </row>
+        </template>
+        <span>Profile</span>
+      </v-tooltip>
+    </v-layout>
+
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -93,7 +134,7 @@
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: 'HomePage',
 
     data: () => ({
       ecosystem: [
