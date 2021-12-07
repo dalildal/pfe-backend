@@ -1,1 +1,1 @@
-api: nest start
+web: npm run start:prod
