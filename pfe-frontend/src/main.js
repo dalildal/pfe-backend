@@ -13,9 +13,9 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
-/*
-console.log('script loader');
 
+console.log('script loader');
+/*
 async function getData() {
   let url = 'https://vinci-market-back.herokuapp.com/';
   let resp = await fetch(url);
