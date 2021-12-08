@@ -29,6 +29,12 @@ updateUser(@Param('id') id: String, @Body() userdto: User){
 remove(@Param('id') id:String){
     return 'remove a user';
 }
+@Post('login')
+async verifyUser(@Body() userDTO: UserDTO){
+    if(this.userService.verifyUser(userDTO)){
+        //TODO
+    }
+}
 
 @Post('register')
 async createUser(@Body() userdto : User){
