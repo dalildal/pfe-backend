@@ -1,54 +1,74 @@
 <template>
-  <v-app>
-    <v-card class="overflow">
-      <v-app-bar
+  <div id="app">
+  <v-app id="inspire">
+    <v-navigation-drawer
+        permanent
         app
-        color="primary"
-        shrink-on-scroll
-        dark
-        scroll-target="#scrolling-techniques-2"
-      >
-        <div class="d-flex align-center">
-          <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2"
-            contain
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-            transition="scale-transition"
-            width="40"
-          />
-
-          <v-img
-            alt="Vuetify Name"
-            class="shrink mt-1 hidden-sm-and-down"
-            contain
-            min-width="100"
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-            width="100"
-          />
-        </div>
-
-        <v-spacer></v-spacer>
-
-        <v-btn
-          href="https://github.com/vuetifyjs/vuetify/releases/latest"
-          target="_blank"
-          text
-        >
-          <span class="mr-2">Latest Release</span>
-          <v-icon>mdi-open-in-new</v-icon>
-        </v-btn>
-        <v-btn href="/fonction">
-          <span>Fonction</span>
-        </v-btn>
-        <v-btn @click="$vuetify.theme.dark = !$vuetify.theme.dark" />
-      </v-app-bar>
-
-      <v-main>
-        <router-view/>
-      </v-main>
-    </v-card>
+        width=80
+    >
+      <v-layout justify-space-between column fill-height>
+        <v-list> 
+          <v-list-item link href="/">
+            <v-list-item-avatar>
+                <v-img
+                  rounded
+                  src='./assets/home.png'
+                />
+            </v-list-item-avatar>
+          </v-list-item>
+          <v-tooltip right
+            v-for="(item, i) in top_items"
+            :key="i">
+            <template v-slot:activator="{on, attrs}">
+              <v-list-item link :href="item.href">
+                <v-list-item-icon>
+                      <v-icon v-bind:color="$route.path==item.href?'#158aaf':''" large v-bind="attrs" v-on="on">{{item.icon}}</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </template>
+            <span>{{item.span}}</span>
+          </v-tooltip>
+        </v-list>
+        <v-list>
+          <v-tooltip right>
+            <template v-slot:activator="{on, attrs}">
+              <v-list-item @click="toggle_dark_mode">
+                <v-list-item-icon>
+                  <v-icon v-if="$vuetify.theme.dark" large v-bind="attrs" v-on="on">mdi-weather-night</v-icon>
+                  <v-icon v-if="!$vuetify.theme.dark" large v-bind="attrs" v-on="on">mdi-sun-wireless-outline</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </template>
+            <span>Thème</span>
+          </v-tooltip>
+          <v-tooltip right
+            v-for="(item, i) in bottom_items"
+            :key="i">
+            <template v-slot:activator="{on, attrs}">
+              <v-list-item link :href="item.href">
+                <v-list-item-icon>
+                      <v-icon v-bind:color="$route.path==item.href?'#158aaf':''" large v-bind="attrs" v-on="on">{{item.icon}}</v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </template>
+            <span>{{item.span}}</span>
+          </v-tooltip>
+        </v-list>
+      </v-layout>
+    </v-navigation-drawer>
+    <v-content>
+      <v-container fluid>
+          <v-row class="fill-height">
+              <v-col>
+                  <transition name="fade">
+                      <router-view></router-view>
+                  </transition>
+              </v-col>
+          </v-row>
+      </v-container>
+    </v-content>
   </v-app>
+</div>
 </template>
 
 <script>
@@ -57,7 +77,42 @@ export default {
   name: 'App',
 
   data: () => ({
-    //
+    top_items: [
+      {
+        href: '/produits',
+        icon: 'mdi-widgets-outline',
+        span: 'Accueil'
+      },
+      {
+        href: '/mes-produits',
+        icon: 'mdi-cart-outline',
+        span: 'Mes produits'
+      }
+    ],
+    bottom_items: [
+      {
+        href: '/a-propos',
+        icon: 'mdi-information-outline',
+        span: 'À propos de nous'
+      },
+      {
+        href: '/logout',
+        icon: 'mdi-logout',
+        span: 'Déconnexion'
+      }
+    ]
   }),
+  methods: {
+    toggle_dark_mode: function () {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
+    }
+  },
+  mounted() {
+    const theme = localStorage.getItem("dark_theme");
+    if(theme) {
+      theme=="true"?this.$vuetify.theme.dark = true : this.$vuetify.theme.dark = false;
+    }
+  }
 };
 </script>

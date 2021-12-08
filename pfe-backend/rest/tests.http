@@ -1,5 +1,5 @@
 ###TEST changeStateMerchandise
-POST http://localhost:3000/user
+POST http://localhost:3000/user/register
 Content-Type: application/json
 
 {
@@ -9,6 +9,17 @@ Content-Type: application/json
     "campus": 43,
     "email": "coczefezfo@email.com",
     "password": "12zefzSSSS3"
+}
+
+###
+
+###TEST changeStateMerchandise
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "email": "coczefezfo@email.com",
+    "password": "12zefzScvxcvSSS3"
 }
 
 ###
