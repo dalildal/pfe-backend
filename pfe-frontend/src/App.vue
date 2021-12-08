@@ -8,7 +8,7 @@
     >
       <v-layout justify-space-between column fill-height>
         <v-list> 
-          <v-list-item link href="#">
+          <v-list-item link href="/">
             <v-list-item-icon>
                 <v-img
                   src='./assets/home.png'
@@ -17,31 +17,23 @@
                 />
             </v-list-item-icon>
           </v-list-item>
-          <v-tooltip right>
+          <v-tooltip right
+            v-for="(item, i) in top_items"
+            :key="i">
             <template v-slot:activator="{on, attrs}">
-              <v-list-item link href="/">
+              <v-list-item link :href="item.href">
                 <v-list-item-icon>
-                      <v-icon color=#21bfe5 large v-bind="attrs" v-on="on">fas fa-shapes</v-icon>
+                      <v-icon v-bind:color="$route.path==item.href?'#158aaf':''" large v-bind="attrs" v-on="on">{{item.icon}}</v-icon>
                 </v-list-item-icon>
               </v-list-item>
             </template>
-            <span>Accueil</span>
-          </v-tooltip>
-          <v-tooltip right>
-            <template v-slot:activator="{on, attrs}">
-              <v-list-item link href="#">
-                <v-list-item-icon>
-                      <v-icon large v-bind="attrs" v-on="on">fas fa-shopping-cart</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-            </template>
-            <span>Panier</span>
+            <span>{{item.span}}</span>
           </v-tooltip>
         </v-list>
         <v-list>
           <v-tooltip right>
             <template v-slot:activator="{on, attrs}">
-              <v-list-item @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+              <v-list-item @click="toggle_dark_mode">
                 <v-list-item-icon>
                   <v-icon v-if="$vuetify.theme.dark" large v-bind="attrs" v-on="on">fas fa-moon</v-icon>
                   <v-icon v-if="!$vuetify.theme.dark" large v-bind="attrs" v-on="on">fas fa-sun</v-icon>
@@ -50,25 +42,17 @@
             </template>
             <span>Thème</span>
           </v-tooltip>
-          <v-tooltip right>
+          <v-tooltip right
+            v-for="(item, i) in bottom_items"
+            :key="i">
             <template v-slot:activator="{on, attrs}">
-              <v-list-item link href="/about">
+              <v-list-item link :href="item.href">
                 <v-list-item-icon>
-                      <v-icon large v-bind="attrs" v-on="on">fas fa-info-circle</v-icon>
+                      <v-icon v-bind:color="$route.path==item.href?'#158aaf':''" large v-bind="attrs" v-on="on">{{item.icon}}</v-icon>
                 </v-list-item-icon>
               </v-list-item>
             </template>
-            <span>À propos de nous</span>
-          </v-tooltip>
-          <v-tooltip right>
-            <template v-slot:activator="{on, attrs}">
-              <v-list-item link href="#">
-                <v-list-item-icon>
-                      <v-icon large v-bind="attrs" v-on="on">fas fa-sign-out-alt</v-icon>
-                </v-list-item-icon>
-              </v-list-item>
-            </template>
-            <span>Déconnexion</span>
+            <span>{{item.span}}</span>
           </v-tooltip>
         </v-list>
       </v-layout>
@@ -94,7 +78,42 @@ export default {
   name: 'App',
 
   data: () => ({
-    //
+    top_items: [
+      {
+        href: '/',
+        icon: 'fas fa-shapes',
+        span: 'Accueil'
+      },
+      {
+        href: '/mes-produits',
+        icon: 'fas fa-shopping-cart',
+        span: 'Mes produits'
+      }
+    ],
+    bottom_items: [
+      {
+        href: '/a-propos',
+        icon: 'fas fa-info-circle',
+        span: 'À propos de nous'
+      },
+      {
+        href: '/logout',
+        icon: 'fas fa-sign-out-alt',
+        span: 'Déconnexion'
+      }
+    ]
   }),
+  methods: {
+    toggle_dark_mode: function () {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      localStorage.setItem("dark_theme", this.$vuetify.theme.dark.toString())
+    }
+  },
+  mounted() {
+    const theme = localStorage.getItem("dark_theme");
+    if(theme) {
+      theme=="true"?this.$vuetify.theme.dark = true : this.$vuetify.theme.dark = false;
+    }
+  }
 };
 </script>
