@@ -38,6 +38,7 @@
         </div>
     </div>
 </template>
+
 <script>
 import { server } from "../../helper";
 import axios from "axios";

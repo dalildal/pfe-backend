@@ -24,7 +24,7 @@
               class="mt-2"
             >
               <v-btn icon v-bind="attrs" v-on="on">
-                <v-icon large>fas fa-bell</v-icon>
+                <v-icon large>mdi-bell-outline</v-icon>
               </v-btn>
             </v-badge>
           </template>
@@ -33,7 +33,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{on, attrs}">
             <v-sheet>
-              <row class="ml-10">
+              <row>
                 <v-btn plain height=100% @click.stop="drawer = !drawer" v-bind="attrs" v-on="on">
                   <v-avatar color=#21bfe5>JV</v-avatar>
                   <span class="mx-2">Julien</span>
@@ -45,7 +45,7 @@
                 absolute
                 temporary
                 right
-                width=35%
+                width=300
               >
                 <v-btn absolute plain top right>
                   <v-icon>far fa-edit</v-icon>
@@ -84,24 +84,20 @@
                     <v-list-item-title>Mes ventes en cours ...</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item two-line>
-                  <v-list-item-avatar tile>
-                    <v-img src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-family-hero?wid=470&hei=556&fmt=png-alpha&.v=1631220221000"/>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title>IPHONE 13 PRO MAX</v-list-item-title>
-                    <v-list-item-subtitle>petit tel pas piqué des annetons</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item two-line>
-                  <v-list-item-avatar tile>
-                    <v-img src="https://media.lactualite.com/2014/08/banane-480x360.jpg"/>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title>BANANE</v-list-item-title>
-                    <v-list-item-subtitle>pas encore mangée</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
+                <v-list 
+                  v-for="card in cards"
+                  :key="card.title"
+                >
+                  <v-list-item two-line>
+                    <v-list-item-avatar tile>
+                      <v-img :src="card.src"/>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                      <v-list-item-title>{{card.title}}</v-list-item-title>
+                      <v-list-item-subtitle>{{card.desc}}</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
               </v-navigation-drawer>
             </v-sheet>
           </template>
@@ -115,7 +111,7 @@
         <v-container fluid>
           <v-row dense>
             <v-col cols="12">
-              <v-card color=#158aaf>
+              <v-card color=#158aaf elevation="0" class="mb-5">
                 <v-card-title>
                   <v-img max-width=50 src="../assets/home.png"/>
                   <span class="text-h6 ml-5 font-weight-light">Vinci Market</span>
@@ -139,38 +135,59 @@
                 </v-card-actions>
               </v-card>
             </v-col>
-            <v-col
-              v-for="card in cards"
-              :key="card.title"
-              md="6"
-              lg="4"
-              xl="3"
-            >
+            <v-col cols=12>
               <v-card>
-                <v-img
-                  :src="card.src"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="200px"
-                >
-                  <v-card-title v-text="card.title"></v-card-title>
-                </v-img>
+                <v-row>
+                  <h1 class="pl-10 pt-5">Fil d'actualité</h1>
+                </v-row>
+                <v-row class="px-2">
+                  <v-col
+                    v-for="card in cards"
+                    :key="card.title"
+                    md="6"
+                    lg="4"
+                    xl="3"
+                    class="px-5"
+                  >
+                    <v-card elevation="0">
+                      <v-img
+                        :src="card.src"
+                        class="white--text align-end"
+                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                        height="200px"
+                      >
+                        <v-card-title v-text="card.title" />
+                        <v-card-subtitle v-text="card.desc" />
+                      </v-img>
 
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-
-                  <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
-                  </v-btn>
-
-                  <v-btn icon>
-                    <v-icon>mdi-bookmark</v-icon>
-                  </v-btn>
-
-                  <v-btn icon>
-                    <v-icon>mdi-share-variant</v-icon>
-                  </v-btn>
-                </v-card-actions>
+                      <v-card-actions>
+                        <v-list-item class="grow">
+                          <v-list-item-avatar color="grey darken-3">
+                            <v-img
+                              class="elevation-6"
+                              alt=""
+                              src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                            ></v-img>
+                          </v-list-item-avatar>
+                          <v-row>
+                            <v-list-item-content>
+                              <v-list-item-title>Evan You</v-list-item-title>
+                            </v-list-item-content>
+                            <v-tooltip top>
+                              <template v-slot:activator="{on, attrs}">
+                                <v-btn icon v-bind="attrs" v-on="on">
+                                  <v-icon>mdi-star</v-icon>
+                                  <span>4,5</span>
+                                </v-btn>
+                              </template>
+                              <span>Utilisateur recommendé</span>
+                            </v-tooltip>
+                          </v-row>
+                        </v-list-item>
+                      </v-card-actions>
+                    </v-card>
+                  </v-col>
+                </v-row>
               </v-card>
             </v-col>
           </v-row>
@@ -179,36 +196,71 @@
       <v-col md="4" lg="3">
         <v-container fluid>
           <v-row dense>
-            <v-col
-              v-for="card in cards"
-              :key="card.title"
-              :cols="card.flex"
-            >
-              <v-card>
-                <v-img
-                  :src="card.src"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="200px"
+            <v-col>
+              <v-card
+                max-width="400"
+                class="mx-auto"
+              >
+                <h3 class="pa-5">Mes ventes</h3>
+                <v-virtual-scroll
+                  :bench="benched"
+                  :items="cards"
+                  height="250"
+                  item-height="64"
                 >
-                  <v-card-title v-text="card.title"></v-card-title>
-                </v-img>
+                  <template v-slot:default="{ item }">
+                    <v-list-item two-line :key="item">
+                      <v-list-item-avatar tile>
+                        <v-img tile :src="item.src"/>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{item.title}}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                          {{item.desc}}
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
 
-                <v-card-actions>
-                  <v-spacer></v-spacer>
+                      <v-list-item-action>
+                        <v-icon small>
+                          mdi-open-in-new
+                        </v-icon>
+                      </v-list-item-action>
+                    </v-list-item>
 
-                  <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
-                  </v-btn>
-
-                  <v-btn icon>
-                    <v-icon>mdi-bookmark</v-icon>
-                  </v-btn>
-
-                  <v-btn icon>
-                    <v-icon>mdi-share-variant</v-icon>
-                  </v-btn>
-                </v-card-actions>
+                    <v-divider></v-divider>
+                  </template>
+                </v-virtual-scroll>
+              </v-card>
+              <v-card
+                max-width="400"
+                class="mx-auto mt-5"
+              >
+                <h3 class="pa-5">Chats</h3>
+                <v-virtual-scroll
+                  :bench="benched"
+                  :items="users"
+                  height="300"
+                  item-height="70"
+                >
+                  <template v-slot:default="{ item }">
+                    <v-list-item two-line :key="item">
+                      <v-list-item-avatar>
+                        <v-img :src="item.src"/>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{item.name}}
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                          Dernière chose de dite
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-divider></v-divider>
+                  </template>
+                </v-virtual-scroll>
               </v-card>
             </v-col>
           </v-row>
@@ -224,10 +276,16 @@
 
     data: () => ({
       cards: [
-        { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'},
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
+        { title: 'IPHONE 13 PRO MAX', desc:'petit tel pas piqué des annetons', src: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-family-hero?wid=470&hei=556&fmt=png-alpha&.v=1631220221000'},
+        { title: 'BANANE', desc:'pas encore mangée', src: 'https://media.lactualite.com/2014/08/banane-480x360.jpg'},
+        { title: 'VESTE', desc:'comme neuf', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
       ],
+      users: [
+        { name: 'Chris Gaviria', src: "https://randomuser.me/api/portraits/men/78.jpg"},
+        { name: 'Dalil Rachik', src: "https://randomuser.me/api/portraits/men/78.jpg"},
+        { name: 'Filipe Manuel Cardoso Ribeiro', src: "https://randomuser.me/api/portraits/men/78.jpg"},
+        { name: 'Obey Senhaji', src: "https://randomuser.me/api/portraits/men/78.jpg"},
+      ]
     }),
   }
 </script>

@@ -9,13 +9,12 @@
       <v-layout justify-space-between column fill-height>
         <v-list> 
           <v-list-item link href="/">
-            <v-list-item-icon>
+            <v-list-item-avatar>
                 <v-img
+                  rounded
                   src='./assets/home.png'
-                  max-width=50
-                  max-height=50
                 />
-            </v-list-item-icon>
+            </v-list-item-avatar>
           </v-list-item>
           <v-tooltip right
             v-for="(item, i) in top_items"
@@ -35,8 +34,8 @@
             <template v-slot:activator="{on, attrs}">
               <v-list-item @click="toggle_dark_mode">
                 <v-list-item-icon>
-                  <v-icon v-if="$vuetify.theme.dark" large v-bind="attrs" v-on="on">fas fa-moon</v-icon>
-                  <v-icon v-if="!$vuetify.theme.dark" large v-bind="attrs" v-on="on">fas fa-sun</v-icon>
+                  <v-icon v-if="$vuetify.theme.dark" large v-bind="attrs" v-on="on">mdi-weather-night</v-icon>
+                  <v-icon v-if="!$vuetify.theme.dark" large v-bind="attrs" v-on="on">mdi-sun-wireless-outline</v-icon>
                 </v-list-item-icon>
               </v-list-item>
             </template>
@@ -80,25 +79,25 @@ export default {
   data: () => ({
     top_items: [
       {
-        href: '/',
-        icon: 'fas fa-shapes',
+        href: '/produits',
+        icon: 'mdi-widgets-outline',
         span: 'Accueil'
       },
       {
         href: '/mes-produits',
-        icon: 'fas fa-shopping-cart',
+        icon: 'mdi-cart-outline',
         span: 'Mes produits'
       }
     ],
     bottom_items: [
       {
         href: '/a-propos',
-        icon: 'fas fa-info-circle',
+        icon: 'mdi-information-outline',
         span: 'À propos de nous'
       },
       {
         href: '/logout',
-        icon: 'fas fa-sign-out-alt',
+        icon: 'mdi-logout',
         span: 'Déconnexion'
       }
     ]
