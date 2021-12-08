@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { UserModule } from './users/user.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ProductsController } from './products/products.controller';
 
 
 @Module({
@@ -14,7 +15,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
   ,ServeStaticModule.forRoot({
     rootPath: join(__dirname, '../..', 'pfe-frontend/dist'),
   })],
-  controllers: [AppController],
+  controllers: [AppController, ProductsController],
   providers: [AppService],
   
 })
