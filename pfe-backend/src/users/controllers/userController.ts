@@ -1,5 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { UserDTO } from '../dto/userDto';
+import { LoginUserDto } from '../models/DTO/LoginUser.dto';
+import { User } from '../models/user.interface';
+
+
 import { UserService } from '../services/userService';
 
 @Controller('user')
@@ -8,8 +11,8 @@ export class UserController {
     constructor(private userService:UserService){}
   
 @Get()
-findAll(): string {
-    return 'This action returns all the user';
+async getUsers() {
+    return await this.userService.getUsers();
   }
 
 @Get('/:id')
@@ -18,7 +21,7 @@ getUserById(@Param('id') id: string){
 }
 
 @Put(':id')
-updateUser(@Param('id') id: String, @Body() userdto: UserDTO){
+updateUser(@Param('id') id: String, @Body() userdto: User){
     return 'update a user';
 }
 
@@ -26,10 +29,25 @@ updateUser(@Param('id') id: String, @Body() userdto: UserDTO){
 remove(@Param('id') id:String){
     return 'remove a user';
 }
+@Post('login')
+async verifyUser(@Body() userDTO: UserDTO){
+    if(this.userService.verifyUser(userDTO)){
+        //TODO
+    }
+}
 
-@Post()
-createUser(@Body() userdto : UserDTO){
-    return 'user';
+@Post('register')
+async createUser(@Body() userdto : User){
+    
+    return await this.userService.create(userdto);
+
+}
+
+@Post('login')
+async verify(@Body() userLoginDTO : LoginUserDto){
+    
+    return await this.userService.verify(userLoginDTO);
+
 }
 
 }
