@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { UserDTO } from '../models/userDto';
+import { LoginUserDto } from '../models/DTO/LoginUser.dto';
+import { User } from '../models/user.interface';
+
 
 import { UserService } from '../services/userService';
 
@@ -19,7 +21,7 @@ getUserById(@Param('id') id: string){
 }
 
 @Put(':id')
-updateUser(@Param('id') id: String, @Body() userdto: UserDTO){
+updateUser(@Param('id') id: String, @Body() userdto: User){
     return 'update a user';
 }
 
@@ -27,10 +29,24 @@ updateUser(@Param('id') id: String, @Body() userdto: UserDTO){
 remove(@Param('id') id:String){
     return 'remove a user';
 }
+@Post('login')
+async verifyUser(@Body() userDTO: UserDTO){
+    if(this.userService.verifyUser(userDTO)){
+        //TODO
+    }
+}
 
-@Post()
-async createUser(@Body() userdto : UserDTO){
+@Post('register')
+async createUser(@Body() userdto : User){
+    
     return await this.userService.create(userdto);
+
+}
+
+@Post('login')
+async verify(@Body() userLoginDTO : LoginUserDto){
+    
+    return await this.userService.verify(userLoginDTO);
 
 }
 
