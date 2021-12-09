@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Fonction from '../views/Fonction.vue'
 import Signup from '../views/Signup.vue'
 import Announces from '../views/Announces.vue'
+import ProductDetail from '../views/ProductDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -12,6 +13,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/product',
+    name: 'ProductDetail',
+    component: ProductDetail
   },
   {
     path: '/about',
