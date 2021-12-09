@@ -80,19 +80,19 @@ export default {
   data: () => ({
     top_items: [
       {
-        href: '/produits',
+        href: '/announces',
         icon: 'mdi-widgets-outline',
-        span: 'Produits'
+        span: 'Annonces'
       },
       {
-        href: '/mes-produits',
+        href: '/my-announces',
         icon: 'mdi-cart-outline',
-        span: 'Mes produits'
+        span: 'Mes annonces'
       }
     ],
     bottom_items: [
       {
-        href: '/a-propos',
+        href: '/about',
         icon: 'mdi-information-outline',
         span: 'À propos de nous'
       },
