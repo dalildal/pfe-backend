@@ -30,15 +30,9 @@
     "@nestjs/mongoose": "^9.0.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/serve-static": "^2.2.2",
-<<<<<<< HEAD
     "bcrypt": "^5.0.1",
-    "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
-    "mongoose": "^6.0.15",
-    "passport-jwt": "^4.0.0",
-=======
     "mongoose": "^6.1.0",
->>>>>>> 9c22a133ae651caba780d1fbe2ca07e405b57789
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
