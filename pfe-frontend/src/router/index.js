@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import ProductDetail from '../views/ProductDetail.vue'
+import Fonction from '../views/Fonction.vue'
+import Signup from '../views/Signup.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +26,21 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+  {
+    path: '/fonction',
+    name: 'Fonction',
+    component: Fonction
+  },
+  {
+    path: '/register',
+    name: 'Signup',
+    component: Signup
+  },
+  {
+    path: '/login',
+    name: 'Signup',
+    component: Signup
+  }
 ]
 
 const router = new VueRouter({

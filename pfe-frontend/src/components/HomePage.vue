@@ -35,7 +35,7 @@
             <v-sheet>
               <row>
                 <v-btn plain height=100% @click.stop="drawer = !drawer" v-bind="attrs" v-on="on">
-                  <v-avatar color=#21bfe5>JV</v-avatar>
+                  <v-avatar color=#158aaf>JV</v-avatar>
                   <span class="mx-2">Julien</span>
                   <v-icon>fas fa-caret-down</v-icon>
                 </v-btn>
@@ -111,7 +111,10 @@
         <v-container fluid>
           <v-row dense>
             <v-col cols="12">
-              <v-card color=#158aaf elevation="0" class="mb-5">
+              <v-card 
+                style="background-image: linear-gradient(to bottom right, #0c607a, #21bfe5);" 
+                elevation="0" 
+                class="mb-5">
                 <v-card-title>
                   <v-img max-width=50 src="../assets/home.png"/>
                   <span class="text-h6 ml-5 font-weight-light">Vinci Market</span>
@@ -273,7 +276,6 @@
 <script>
   export default {
     name: 'HomePage',
-
     data: () => ({
       cards: [
         { title: 'IPHONE 13 PRO MAX', desc:'petit tel pas piqué des annetons', src: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-family-hero?wid=470&hei=556&fmt=png-alpha&.v=1631220221000'},
