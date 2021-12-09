@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="pt-5 px-9">
       <v-layout class="mb-5">
         <v-autocomplete
           v-model="select"

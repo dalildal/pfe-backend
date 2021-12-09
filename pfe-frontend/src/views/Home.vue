@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <navbar />
     <v-container fluid>
       <v-row>
@@ -8,13 +8,7 @@
             <v-row dense>
               <v-col cols="12">
                 <v-card
-                  style="
-                    background-image: linear-gradient(
-                      to bottom right,
-                      #0c607a,
-                      #21bfe5
-                    );
-                  "
+                  style="background-image: linear-gradient(to top left, #0c607a, #21bfe5);"
                   elevation="0"
                   class="mb-5"
                 >
@@ -173,7 +167,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-container>
+  </div>
 </template>
 
 <script>

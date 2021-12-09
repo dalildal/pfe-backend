@@ -6,7 +6,6 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Announces from '../views/Announces.vue'
 import ProductDetail from '../views/ProductDetail.vue'
-import Fonction from '../views/Fonction.vue'
 
 Vue.use(VueRouter)
 
