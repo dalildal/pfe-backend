@@ -27,14 +27,13 @@ export class UserController {
     remove(@Param('id') id: String) {
         return 'remove a user';
     }
-    /*
+
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
-        if (this.userService.verifyUser(userDTO)) {
-            //TODO
+        if (this.userService.verify(userDTO)) {
         }
     }
-*/
+
     @Post('register')
     async createUser(@Body() userdto: User) {
 
