@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from '../models/products.model';
@@ -9,14 +9,14 @@ export class ProductsService {
         @InjectModel('Product') private readonly productModel: Model<Product>,
     ) { }
 
-    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, address: string) {
+    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string) {
         const newProduct = new this.productModel({
             idUser,
             state,
             title,
             description: desc,
             price,
-            address,
+            idCategory,
         });
         const result = await newProduct.save();
         return result.id as string;
@@ -31,7 +31,7 @@ export class ProductsService {
             title: prod.title,
             description: prod.description,
             price: prod.price,
-            address: prod.address,
+            idCategory: prod.idCategory,
         }));
     }
 
@@ -44,30 +44,33 @@ export class ProductsService {
             title: product.title,
             description: product.description,
             price: product.price,
-            address: product.address,
+            idCategory: product.idCategory,
         };
     }
 
-    async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, address: string) {
+    async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string) {
         const updatedProduct = await this.findProduct(productId);
-        if (updatedProduct.idUser === idUser) {
-            if (state) {
-                updatedProduct.state = state;
-            }
-            if (title) {
-                updatedProduct.title = title;
-            }
-            if (desc) {
-                updatedProduct.description = desc;
-            }
-            if (price) {
-                updatedProduct.price = price;
-            }
-            if (address) {
-                updatedProduct.address = address;
-            }
-            updatedProduct.save();
+
+        if (updatedProduct.idUser != idUser) {
+            throw new HttpException('Wrong user', HttpStatus.UNAUTHORIZED); // en attendant de pouvoir vérifié avec le token
         }
+
+        if (state) {
+            updatedProduct.state = state;
+        }
+        if (title) {
+            updatedProduct.title = title;
+        }
+        if (desc) {
+            updatedProduct.description = desc;
+        }
+        if (price) {
+            updatedProduct.price = price;
+        }
+        if (idCategory) {
+            updatedProduct.idCategory = idCategory;
+        }
+        updatedProduct.save();
     }
 
     async deleteProduct(prodId: string) {

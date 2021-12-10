@@ -20,7 +20,7 @@ export class ProductsController {
         @Body('title') prodTitle: string,
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
-        @Body('address') prodAddress: string,
+        @Body('idCategory') prodIdCategory: string,
     ) {
         const generatedId = await this.productsService.insertProduct(
             prodIdUser,
@@ -28,7 +28,7 @@ export class ProductsController {
             prodTitle,
             prodDesc,
             prodPrice,
-            prodAddress,
+            prodIdCategory,
         );
         return { id: generatedId };
     }
@@ -52,9 +52,9 @@ export class ProductsController {
         @Body('title') prodTitle: string,
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
-        @Body('address') prodAddress: string,
+        @Body('idCategory') prodIdCategory: string,
     ) {
-        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodAddress);
+        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory);
         return null;
     }
 
