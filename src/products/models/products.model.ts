@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 export const ProductSchema = new mongoose.Schema({
     idUser: { type: String, required: true },
-    state: { type: String, required: true },
+    state: { type: String, required: true }, // Vendre / Donner / Vendu
     title: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
