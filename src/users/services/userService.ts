@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/mongoose"
 import { Model } from "mongoose"
 import * as bcrypt from 'bcrypt';
 import { User } from "../models/user.interface"
-import { LoginUserDto } from '../models/dto/loginuser.dto';
+import { LoginUserDto } from "src/users/models/dto/loginuser.dto";
 import { AuthService } from "src/auth/services/authService";
 import { from } from "rxjs/internal/observable/from";
 
