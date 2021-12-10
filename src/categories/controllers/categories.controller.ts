@@ -28,7 +28,7 @@ export class CategoriesController {
     }
 
     @Patch(':id')
-    async updateProduct(
+    async updateCategory(
         @Param('id') catId: string,
         @Body('name') catName: string,
 
@@ -38,7 +38,7 @@ export class CategoriesController {
     }
 
     @Delete(':id')
-    async removeProduct(@Param('id') catId: string) {
+    async removeCategory(@Param('id') catId: string) {
         await this.categoriesService.deleteCategory(catId);
         return null;
     }
