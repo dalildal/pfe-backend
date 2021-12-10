@@ -1,0 +1,20 @@
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+    "name": "Électronique"
+}
+
+###
+
+GET http://localhost:3000/categories
+Content-Type: application/json
+###
+
+GET http://localhost:3000/categories/61b361c2d43fcc005155f323
+Content-Type: application/json
+###
+
+DELETE  http://localhost:3000/categories/61b362b0d43fc5155f325
+Content-Type: application/json
+###
