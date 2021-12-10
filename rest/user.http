@@ -7,7 +7,7 @@ Content-Type: application/json
     "name": "jaezfazef",
     "lastname": "feaz",
     "campus": 43,
-    "email": "coczefezthgfo@email.com",
+    "email": "coczefezfo@email.com",
     "password": "12zefzSSSS3"
 }
 
@@ -18,8 +18,8 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-    "email": "coczefezthgfo@email.com",
-    "password": "12zefzSSSS3"
+    "email": "coczefezfo@email.com",
+    "password": "12zefzScvxcvSSS3"
 }
 
 ###

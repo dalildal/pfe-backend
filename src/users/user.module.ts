@@ -4,8 +4,8 @@ import { UserService } from './services/userService';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './models/user.interface';
 import { AuthService } from 'src/auth/services/authService';
-import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from 'src/auth/constants/constants';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]), JwtModule.register({
@@ -14,6 +14,7 @@ import { jwtConstants } from 'src/auth/constants/constants';
   }),],
   controllers: [UserController],
   providers: [UserService, AuthService],
+  exports: [UserService]
 })
 
 
