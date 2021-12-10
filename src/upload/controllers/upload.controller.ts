@@ -12,6 +12,8 @@ import path = require('path');
 import { User } from 'src/users/models/user.interface';
 import { UploadService } from '../services/upload.service';
 import { Observable, of } from 'rxjs';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 export const storageProfile = {
     storage: diskStorage({
@@ -45,6 +47,7 @@ export class UploadController {
   constructor(private uploadService: UploadService) {}
 
   @Post('profilePic')
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file', storageProfile))
   uploadFile(@UploadedFile() file): Observable<Object>{
     console.log(file.filename);
