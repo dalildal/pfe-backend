@@ -10,6 +10,9 @@ import { from } from "rxjs/internal/observable/from";
 
 @Injectable()
 export class UserService {
+    updateOne(id: User, arg1: { profileImage: any; }) {
+        throw new Error("Method not implemented.");
+    }
     jwtService: any;
 
     constructor(
@@ -27,7 +30,6 @@ export class UserService {
             throw new HttpException('Login was not Successfull', HttpStatus.UNAUTHORIZED);
         }
         const isMatch = await bcrypt.compare(loginUser.password, user.password);
-        console.log(isMatch)
         if (!isMatch) {
             throw new HttpException('Wrong password or email', HttpStatus.UNAUTHORIZED);
         }
@@ -48,14 +50,14 @@ export class UserService {
     async create(userRegister: User): Promise<string> {
         const newUser = new this.userModel(userRegister);
 
-        if (this.findUserByEmail(newUser.email)) {
+        if (await this.findUserByEmail(newUser.email)) {
             throw new HttpException("Mail already taken", HttpStatus.UNAUTHORIZED)
         }
         if (newUser.password.length == 0) {
             throw new HttpException("Password is empty", HttpStatus.UNAUTHORIZED)
         }
-        const round = Math.floor(Math.random() * 25487595);
-        newUser.password = await bcrypt.hash(newUser.password, round);
+        const salt = await bcrypt.genSalt();
+        newUser.password = await bcrypt.hash(newUser.password, salt);
         let user = await newUser.save();
         return user.id as string;
     }
