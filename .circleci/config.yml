@@ -28,4 +28,4 @@ workflows:
           filters:
             branches:
               # This sample config runs this job on any branch matching the regex below, however, it's more likely you want to only run this job on master.
-              only: main  # Uncomment this line
+              only: main
