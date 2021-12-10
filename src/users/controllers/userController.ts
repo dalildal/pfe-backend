@@ -30,8 +30,7 @@ export class UserController {
 
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
-        if (this.userService.verify(userDTO)) {
-        }
+        return await this.userService.verify(userDTO);
     }
 
     @Post('register')
