@@ -1,4 +1,7 @@
+import { UseGuards } from '@nestjs/common';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { map } from 'rxjs/operators';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { LoginUserDto } from 'src/users/models/DTO/loginUser.dto';
 import { User } from '../models/user.interface';
 import { UserService } from '../services/userService';
@@ -13,6 +16,7 @@ export class UserController {
         return await this.userService.getUsers();
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('/:id')
     getUserById(@Param('id') id: string) {
         return this.userService.getUser(id);
@@ -28,23 +32,24 @@ export class UserController {
         return 'remove a user';
     }
 
+    
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
-        if (this.userService.verify(userDTO)) {
-        }
+        return (await this.userService.verify(userDTO)).pipe(
+            map((jwt:string) =>{
+                return {
+                    access_token: jwt,
+                    token_type:'JWT',
+                    exprires_in:10000
+                }
+            })
+        )
     }
 
     @Post('register')
     async createUser(@Body() userdto: User) {
 
         return await this.userService.create(userdto);
-
-    }
-
-    @Post('login')
-    async verify(@Body() userLoginDTO: LoginUserDto) {
-
-        return await this.userService.verify(userLoginDTO);
 
     }
 
