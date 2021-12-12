@@ -37,7 +37,7 @@ export class UserService {
     }
 
     getUser(id: string) {
-        this.userModel.findById
+        return this.userModel.findById(id)
     }
 
 
