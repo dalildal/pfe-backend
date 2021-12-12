@@ -39,13 +39,13 @@ export class ProductsService {
     }
 
     async getProductsWithFilters(filterDto: GetProductsFilterDto) {
-        const { status, search } = filterDto;
+        let { status, search } = filterDto;
         let products = await this.findAllProducts();
-
+        search = search.toLocaleLowerCase();
         if (search) {
             products = (await products).filter(prod =>
-                prod.title.includes(search) ||
-                prod.description.includes(search)
+                prod.title.toLocaleLowerCase().includes(search) ||
+                prod.description.toLocaleLowerCase().includes(search)
             );
         }
         return products;

@@ -38,5 +38,5 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/products?search=DROIT
+GET http://localhost:3000/products?search=cHim
 Content-Type: application/json
