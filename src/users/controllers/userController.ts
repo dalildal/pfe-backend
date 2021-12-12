@@ -36,8 +36,9 @@ export class UserController {
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
         return (await this.userService.verify(userDTO)).pipe(
-            map((jwt:string) =>{
-                return {
+            map(async (jwt:string) =>{
+                return{
+                    userId : await (await this.userService.findUserByEmail(userDTO.email)).id,
                     access_token: jwt,
                     token_type:'JWT',
                     exprires_in:10000
