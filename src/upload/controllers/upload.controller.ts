@@ -3,6 +3,7 @@ import {
   Post,
   UseInterceptors,
   UploadedFile,
+  Body,
 } from '@nestjs/common';
 import { UserService } from 'src/users/services/userService';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -49,16 +50,17 @@ export class UploadController {
   @Post('profilePic')
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file', storageProfile))
-  uploadFile(@UploadedFile() file): Observable<Object>{
+  uploadFile(@UploadedFile() file,@Body() userId:string): Observable<Object>{
     console.log(file.filename);
-    //TODO Set file.filename to the user using the userID
+    let filePath = './uploads/profileimages'+file.path;
+    this.uploadService.upload(filePath,userId);
     return of({imagePath: file.path})
   }
 
   @Post('productPic')
   @UseInterceptors(FileInterceptor('file', storageProduct))
-  uploadFileProduct(@UploadedFile() file): Observable<Object>{
-    console.log(file.filename);
+  uploadFileProduct(@UploadedFile() file,@Body() userId:string): Observable<Object>{
+    
     return of({imagePath: file.path})
   }
 

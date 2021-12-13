@@ -9,6 +9,7 @@ export const UserSchema = new mongoose.Schema({
     email: {type: String, required : true},
     password: {type: String, required : true},
     is_admin: Boolean,
+    url_profil_pic: String,
 
 })
 
@@ -22,5 +23,6 @@ export interface User {
     email: string;
     password: string;
     is_admin: boolean;
+    url_profil_pic:string;
 
 }

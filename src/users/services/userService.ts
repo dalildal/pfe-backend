@@ -10,9 +10,9 @@ import { from } from "rxjs/internal/observable/from";
 
 @Injectable()
 export class UserService {
-    updateOne(id: User, arg1: { profileImage: any; }) {
-        throw new Error("Method not implemented.");
-    }
+    
+    
+  
     jwtService: any;
 
     constructor(
@@ -40,6 +40,12 @@ export class UserService {
         this.userModel.findById
     }
 
+    async updateOneProfilPic(path: string,id: string) {
+        const updatedUser = await this.userModel.findById(id);
+        updatedUser.url_profil_pic = path;
+        updatedUser.save();
+        
+    }
 
     async getUsers() {
         const users = await this.userModel.find().exec();

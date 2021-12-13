@@ -13,8 +13,8 @@ export class UploadService {
     }
     
     
-    upload(id: User, arg1: { profileImage: any; }) {
-        return this.userService.updateOne(id, arg1);
+    upload(path: string,id:string) {
+        return this.userService.updateOneProfilPic(path, id);
     }
 
 
