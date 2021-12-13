@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { AuthService } from "src/auth/services/authService";
 import { Notification } from '../models/notifications.model';
 
 
@@ -10,7 +9,7 @@ export class NotificationService {
     constructor(
         @InjectModel('Notification')
         private readonly notificationModel: Model<Notification>,
-        private authService: AuthService
+        
     ) { }
 
     async createNotification(idUser: string,idProduct: string, state: string, title: string,description: string) {

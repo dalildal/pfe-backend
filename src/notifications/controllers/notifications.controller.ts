@@ -5,7 +5,7 @@ import { NotificationService } from "../services/notifications.service";
 @Controller('notifications')
 export class NotificationController {
 
-    constructor(private readonly notificationsService: NotificationService){
+    constructor(private readonly notificationsService: NotificationService) {
 
     }
 
@@ -17,8 +17,8 @@ export class NotificationController {
         @Body('state') prodState: string,
         @Body('title') prodTitle: string,
         @Body('description') prodDesc: string,
-        
-        
+
+
     ) {
         const generatedId = await this.notificationsService.createNotification(
             prodIdUser,

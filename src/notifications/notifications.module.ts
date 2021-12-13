@@ -8,7 +8,6 @@ import { NotificationService } from "./services/notifications.service";
     imports: [MongooseModule.forFeature([{ name: 'Notification', schema: NotificationSchema }])],
     controllers: [NotificationController],
     providers: [NotificationService],
-    exports: [NotificationService]
   })
   
   
