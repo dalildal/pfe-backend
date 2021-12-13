@@ -3,12 +3,13 @@ Content-Type: application/json
 
 {
     "idUser": "61af4d49b82ce6de16f8fa4c",
-    "state": "Donner",
-    "title": "Tablier labo",
-    "description": "Tablier labo pour BLOC 2 - Chimie",
-    "price": "0",
-    "idCategory": "55"
-}
+    "state": "Vendre",
+    "title": "PC HP 15' ",
+    "description": "PC portable HP 256go 4go RAM",
+    "price": 250,
+    "idCategory": "61b37aff3cb6b131c8aa9a4a",
+    "address": "Clos chappel au champ 43 Woluwe"
+    }
 
 ###
 
@@ -35,3 +36,7 @@ Content-Type: application/json
     "price": "255",
     "idCategory": "55"
 }
+
+###
+GET http://localhost:3000/products?sort=DESC&search=2
+Content-Type: application/json

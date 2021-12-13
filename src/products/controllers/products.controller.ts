@@ -6,7 +6,9 @@ import {
     Param,
     Patch,
     Delete,
+    Query,
 } from '@nestjs/common';
+import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 
 @Controller('products')
@@ -21,6 +23,7 @@ export class ProductsController {
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
         @Body('idCategory') prodIdCategory: string,
+        @Body('address') prodAddress: string,
     ) {
         const generatedId = await this.productsService.insertProduct(
             prodIdUser,
@@ -29,16 +32,20 @@ export class ProductsController {
             prodDesc,
             prodPrice,
             prodIdCategory,
+            prodAddress,
         );
         return { id: generatedId };
     }
 
     @Get()
-    async getAllProducts() {
-        const products = await this.productsService.getProducts();
-        console.log(products);
-        
-        return products;
+    async getAllProducts(@Query() filterDto: GetProductsFilterDto) {
+        if (Object.keys(filterDto).length) {
+            const productsFiltered = await this.productsService.getProductsWithFilters(filterDto);
+            return productsFiltered;
+        } else {
+            const products = await this.productsService.getProducts();
+            return products;
+        }
     }
 
     @Get(':id')
@@ -55,8 +62,9 @@ export class ProductsController {
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
         @Body('idCategory') prodIdCategory: string,
+        @Body('address') prodAddress: string,
     ) {
-        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory);
+        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory, prodAddress);
         return null;
     }
 
