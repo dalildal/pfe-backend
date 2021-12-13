@@ -1,0 +1,32 @@
+###TEST changeStateMerchandise
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+ 
+    "name": "jaezfazef",
+    "lastname": "feaz",
+    "campus": 43,
+    "email": "coczefezouiouifo@email.com",
+    "password": "12zefzSSSS3"
+}
+
+###
+
+###TEST changeStateMerchandise
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{ 
+    "email": "coczefezouiouifo@email.com",
+    "password": "12zefzSSSS3"
+}
+
+###
+
+
+###TEST changeStateMerchandise
+GET http://localhost:3000/user/1
+
+###
+
