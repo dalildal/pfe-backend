@@ -23,7 +23,6 @@ export class ProductsController {
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
         @Body('idCategory') prodIdCategory: string,
-        @Body('creationDate') prodCreationDate: Date,
     ) {
         const generatedId = await this.productsService.insertProduct(
             prodIdUser,
@@ -32,7 +31,6 @@ export class ProductsController {
             prodDesc,
             prodPrice,
             prodIdCategory,
-            prodCreationDate,
         );
         return { id: generatedId };
     }
