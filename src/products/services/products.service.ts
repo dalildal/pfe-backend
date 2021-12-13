@@ -10,7 +10,7 @@ export class ProductsService {
         @InjectModel('Product') private readonly productModel: Model<Product>,
     ) { }
 
-    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string) {
+    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {
         const newProduct = new this.productModel({
             idUser,
             state,
@@ -18,6 +18,7 @@ export class ProductsService {
             description: desc,
             price,
             idCategory,
+            address,
         });
         const result = await newProduct.save();
         return result.id as string;
@@ -33,19 +34,40 @@ export class ProductsService {
             description: prod.description,
             price: prod.price,
             idCategory: prod.idCategory,
+            address: prod.address,
         }));
     }
 
     async getProductsWithFilters(filterDto: GetProductsFilterDto) {
-        let { status, search } = filterDto;
+        let { status, search, sort } = filterDto;
         let products = await this.findAllProducts();
-        search = search.toLocaleLowerCase();
+        if (sort) {
+            if (sort === "ASC") {
+                products = (await products).sort((prod1, prod2) => {
+                    return prod1.price - prod2.price;
+                });
+            } else if (sort === "DESC") {
+                products = (await products).sort((prod1, prod2) => {
+                    return prod2.price - prod1.price;
+                });
+            }
+        }
         if (search) {
+            search = search.toLocaleLowerCase();
             products = (await products).filter(prod =>
                 prod.title.toLocaleLowerCase().includes(search) ||
                 prod.description.toLocaleLowerCase().includes(search)
             );
         }
+        return products;
+    }
+
+    async getProductsByPriceASC() {
+        let products = await this.findAllProducts();
+        products = (await products).sort((prod1, prod2) => {
+            return prod1.price - prod2.price;
+        }
+        );
         return products;
     }
 
@@ -59,10 +81,11 @@ export class ProductsService {
             description: product.description,
             price: product.price,
             idCategory: product.idCategory,
+            address: product.address,
         };
     }
 
-    async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string) {
+    async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {
         const updatedProduct = await this.findProduct(productId);
 
         if (updatedProduct.idUser != idUser) {
@@ -83,6 +106,9 @@ export class ProductsService {
         }
         if (idCategory) {
             updatedProduct.idCategory = idCategory;
+        }
+        if (address) {
+            updatedProduct.address = address;
         }
         updatedProduct.save();
     }
