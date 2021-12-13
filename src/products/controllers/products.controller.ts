@@ -7,7 +7,9 @@ import {
     Patch,
     Delete,
     Query,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 
@@ -23,6 +25,7 @@ export class ProductsController {
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
         @Body('idCategory') prodIdCategory: string,
+        @Body('address') prodAddress: string,
     ) {
         const generatedId = await this.productsService.insertProduct(
             prodIdUser,
@@ -31,6 +34,7 @@ export class ProductsController {
             prodDesc,
             prodPrice,
             prodIdCategory,
+            prodAddress,
         );
         return { id: generatedId };
     }
@@ -51,6 +55,7 @@ export class ProductsController {
         return this.productsService.getSingleProduct(prodId);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Patch(':id')
     async updateProduct(
         @Param('id') prodId: string,
@@ -60,11 +65,13 @@ export class ProductsController {
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
         @Body('idCategory') prodIdCategory: string,
+        @Body('address') prodAddress: string,
     ) {
-        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory);
+        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory, prodAddress);
         return null;
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async removeProduct(@Param('id') prodId: string) {
         await this.productsService.deleteProduct(prodId);
