@@ -12,7 +12,7 @@ import { SubCategoriesModule } from './sub-categories/sub-categories.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), MongooseModule.forRoot(process.env.DATABASE_URL_PROD)
+  imports: [ConfigModule.forRoot({ isGlobal: true }), MongooseModule.forRoot(process.env.DATABASE_URL || process.env.DATABASE_URL_PROD)
     , UserModule, ProductsModule, UploadModule, CategoriesModule, SubCategoriesModule],
   controllers: [AppController],
   providers: [AppService],
