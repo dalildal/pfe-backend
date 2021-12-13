@@ -6,7 +6,9 @@ import {
     Param,
     Patch,
     Delete,
+    Query,
 } from '@nestjs/common';
+import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 
 @Controller('products')
@@ -34,9 +36,14 @@ export class ProductsController {
     }
 
     @Get()
-    async getAllProducts() {
-        const products = await this.productsService.getProducts();
-        return products;
+    async getAllProducts(@Query() filterDto: GetProductsFilterDto) {
+        if (Object.keys(filterDto).length) {
+            const productsFiltered = await this.productsService.getProductsWithFilters(filterDto);
+            return productsFiltered;
+        } else {
+            const products = await this.productsService.getProducts();
+            return products;
+        }
     }
 
     @Get(':id')

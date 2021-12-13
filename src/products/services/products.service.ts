@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { Product } from '../models/products.model';
 
 @Injectable()
@@ -23,7 +24,7 @@ export class ProductsService {
     }
 
     async getProducts() {
-        const products = await this.productModel.find().exec();
+        const products = await this.findAllProducts();
         return products.map(prod => ({
             id: prod.id,
             idUser: prod.idUser,
@@ -33,6 +34,19 @@ export class ProductsService {
             price: prod.price,
             idCategory: prod.idCategory,
         }));
+    }
+
+    async getProductsWithFilters(filterDto: GetProductsFilterDto) {
+        let { status, search } = filterDto;
+        let products = await this.findAllProducts();
+        search = search.toLocaleLowerCase();
+        if (search) {
+            products = (await products).filter(prod =>
+                prod.title.toLocaleLowerCase().includes(search) ||
+                prod.description.toLocaleLowerCase().includes(search)
+            );
+        }
+        return products;
     }
 
     async getSingleProduct(productId: string) {
@@ -93,5 +107,8 @@ export class ProductsService {
             throw new NotFoundException('Could not find product.');
         }
         return product;
+    }
+    private async findAllProducts() {
+        return this.productModel.find().exec();
     }
 }
