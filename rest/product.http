@@ -1,0 +1,42 @@
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "idUser": "61af4d49b82ce6de16f8fa4c",
+    "state": "Donner",
+    "title": "Tablier labo",
+    "description": "Tablier labo pour BLOC 2 - Chimie",
+    "price": "0",
+    "idCategory": "55"
+    
+    }
+
+###
+
+GET http://localhost:3000/products
+Content-Type: application/json
+###
+
+GET http://localhost:3000/products/61b32cbe077d6f98f1d4130f
+Content-Type: application/json
+###
+
+DELETE  http://localhost:3000/products/61b32da6077d6f98f1d41319
+Content-Type: application/json
+###
+
+PATCH http://localhost:3000/products/61b32da6077d6f98f1d41319
+Content-Type: application/json
+
+{
+    "idUser": "61af4d49b82ce6de16f8fa4c",
+    "state": "Vendre",
+    "title": "Tablier labo",
+    "description": "Tablier labo en or massif pour BLOC 7 - CHIMIE",
+    "price": "255",
+    "idCategory": "55"
+}
+
+###
+GET http://localhost:3000/products?search=cHim
+Content-Type: application/json
