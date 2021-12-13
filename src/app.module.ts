@@ -9,9 +9,10 @@ import { UploadModule } from './upload/upload.module';
 import { join } from 'path';
 import { CategoriesModule } from './categories/categories.module';
 import { SubCategoriesModule } from './sub-categories/sub-categories.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb+srv://groupe10:groupe1010@vincimarket.rzddw.mongodb.net/VinciMarket?retryWrites=true&w=majority')
+  imports: [ConfigModule.forRoot({ isGlobal: true }), MongooseModule.forRoot(process.env.DATABASE_URL)
     , UserModule, ProductsModule, UploadModule, CategoriesModule, SubCategoriesModule],
   controllers: [AppController],
   providers: [AppService],
