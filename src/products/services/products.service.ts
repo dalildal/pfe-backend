@@ -37,15 +37,35 @@ export class ProductsService {
     }
 
     async getProductsWithFilters(filterDto: GetProductsFilterDto) {
-        let { status, search } = filterDto;
+        let { status, search, sort } = filterDto;
         let products = await this.findAllProducts();
-        search = search.toLocaleLowerCase();
+        if (sort) {
+            if (sort === "ASC") {
+                products = (await products).sort((prod1, prod2) => {
+                    return prod1.price - prod2.price;
+                });
+            } else if (sort === "DESC") {
+                products = (await products).sort((prod1, prod2) => {
+                    return prod2.price - prod1.price;
+                });
+            }
+        }
         if (search) {
+            search = search.toLocaleLowerCase();
             products = (await products).filter(prod =>
                 prod.title.toLocaleLowerCase().includes(search) ||
                 prod.description.toLocaleLowerCase().includes(search)
             );
         }
+        return products;
+    }
+
+    async getProductsByPriceASC() {
+        let products = await this.findAllProducts();
+        products = (await products).sort((prod1, prod2) => {
+            return prod1.price - prod2.price;
+        }
+        );
         return products;
     }
 

@@ -8,7 +8,6 @@ Content-Type: application/json
     "description": "Tablier labo pour BLOC 2 - Chimie",
     "price": "0",
     "idCategory": "55"
-    
     }
 
 ###
@@ -38,5 +37,5 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/products?search=cHim
+GET http://localhost:3000/products?sort=DESC&search=2
 Content-Type: application/json
