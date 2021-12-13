@@ -10,10 +10,12 @@ import { join } from 'path';
 import { CategoriesModule } from './categories/categories.module';
 import { SubCategoriesModule } from './sub-categories/sub-categories.module';
 import { ConfigModule } from '@nestjs/config';
+import { NotificationModule } from './notifications/notifications.module';
+
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }), MongooseModule.forRoot(process.env.DATABASE_URL)
-    , UserModule, ProductsModule, UploadModule, CategoriesModule, SubCategoriesModule],
+    , UserModule, ProductsModule, UploadModule, CategoriesModule, SubCategoriesModule, NotificationModule],
   controllers: [AppController],
   providers: [AppService],
 
