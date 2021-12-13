@@ -6,11 +6,13 @@ import { Product } from '../models/products.model';
 
 @Injectable()
 export class ProductsService {
+
+
     constructor(
         @InjectModel('Product') private readonly productModel: Model<Product>,
     ) { }
 
-    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string) {
+    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, liste: string[]) {
         const newProduct = new this.productModel({
             idUser,
             state,
@@ -18,6 +20,7 @@ export class ProductsService {
             description: desc,
             price,
             idCategory,
+            liste,
         });
         const result = await newProduct.save();
         return result.id as string;
@@ -33,6 +36,7 @@ export class ProductsService {
             description: prod.description,
             price: prod.price,
             idCategory: prod.idCategory,
+            liste: prod.liste,
         }));
     }
 
@@ -49,6 +53,22 @@ export class ProductsService {
         return products;
     }
 
+    async deleteImage(fileId: any, productId: string) {
+        console.log("Product Id :: " + productId);
+        console.log(fileId);
+        const product = await this.findProduct(productId)
+        for (var i = 0; i < product.liste.length; i++) {
+
+            if (product.liste[i] === fileId) {
+                console.log(product.liste.splice(i, 1));
+                i--;
+            }
+
+        }
+        console.log("Nouvelle liste :: " + product.liste);
+        product.save();
+    }
+
     async getSingleProduct(productId: string) {
         const product = await this.findProduct(productId);
         return {
@@ -59,7 +79,14 @@ export class ProductsService {
             description: product.description,
             price: product.price,
             idCategory: product.idCategory,
+            liste: product.liste
         };
+    }
+
+    async addProductPic(filePath: any, productId: any) {
+        const updatedProduct = await this.findProduct(productId);
+        updatedProduct.liste.push(filePath);
+        updatedProduct.save();
     }
 
     async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string) {

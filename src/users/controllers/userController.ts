@@ -1,4 +1,4 @@
-import { UseGuards } from '@nestjs/common';
+import { Res, UseGuards } from '@nestjs/common';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -22,6 +22,11 @@ export class UserController {
         return this.userService.getUser(id);
     }
 
+    @Get('profil-images/:fileId')
+    async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
+        res.sendFile(fileId, { root: "uploads/profil-images" });
+    }
+
     @Put(':id')
     updateUser(@Param('id') id: String, @Body() userdto: User) {
         return 'update a user';
@@ -32,15 +37,15 @@ export class UserController {
         return 'remove a user';
     }
 
-    
+
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
         return (await this.userService.verify(userDTO)).pipe(
-            map((jwt:string) =>{
+            map((jwt: string) => {
                 return {
                     access_token: jwt,
-                    token_type:'JWT',
-                    exprires_in:10000
+                    token_type: 'JWT',
+                    exprires_in: 10000
                 }
             })
         )

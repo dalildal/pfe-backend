@@ -17,53 +17,57 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 export const storageProfile = {
-    storage: diskStorage({
-        destination: './uploads/profileimages',
-        filename: (req, file, cb) => {
-            const filename: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
-            const extension: string = path.parse(file.originalname).ext;
+  storage: diskStorage({
+    destination: './uploads/profil-images',
+    filename: (req, file, cb) => {
+      const filename: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
+      const extension: string = path.parse(file.originalname).ext;
 
-            cb(null, `${filename}${extension}`)
-        }
-    })
+      cb(null, `${filename}${extension}`)
+    }
+  })
 
 }
 
 export const storageProduct = {
-    storage: diskStorage({
-        destination: './uploads/productimages',
-        filename: (req, file, cb) => {
-            const filename: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
-            const extension: string = path.parse(file.originalname).ext;
+  storage: diskStorage({
+    destination: './uploads/product-images',
+    filename: (req, file, cb) => {
+      const filename: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
+      const extension: string = path.parse(file.originalname).ext;
 
-            cb(null, `${filename}${extension}`)
-        }
-    })
+      cb(null, `${filename}${extension}`)
+    }
+  })
 
 }
 
 
 @Controller('upload')
 export class UploadController {
-  constructor(private uploadService: UploadService) {}
+  constructor(private uploadService: UploadService) { }
 
-  @Post('profilePic')
-  @UseGuards(JwtAuthGuard)
+  @Post('profil-images')
   @UseInterceptors(FileInterceptor('file', storageProfile))
-  uploadFile(@UploadedFile() file,@Body() userId:string): Observable<Object>{
-    console.log(file.filename);
-    let filePath = './uploads/profileimages'+file.path;
-    this.uploadService.upload(filePath,userId);
-    return of({imagePath: file.path})
+  uploadFile(@UploadedFile() file, @Body() userId: any): Observable<Object> {
+
+    let filePath = file.filename;
+
+    this.uploadService.uploadProfilImages(filePath, userId.userId);
+    return of({ imagePath: file.path })
   }
 
-  @Post('productPic')
+  @Post('product-images')
   @UseInterceptors(FileInterceptor('file', storageProduct))
-  uploadFileProduct(@UploadedFile() file,@Body() userId:string): Observable<Object>{
-    
-    return of({imagePath: file.path})
+  uploadFileProduct(@UploadedFile() file, @Body() userId: any): Observable<Object> {
+    console.log(file.filename);
+    let filePath = file.filename;
+    console.log(filePath);
+    console.log(userId.userId);
+    this.uploadService.uploadProductImages(filePath, userId.userId);
+    return of({ imagePath: file.path })
   }
 
- 
-  
+
+
 }

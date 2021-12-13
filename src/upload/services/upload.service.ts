@@ -1,22 +1,27 @@
 import { Injectable } from "@nestjs/common";
 import { User } from "src/users/models/user.interface";
 import { UserService } from "src/users/services/userService";
+import { ProductsService } from "src/products/services/products.service";
 
 @Injectable()
 export class UploadService {
-    
-    
+
+
+
     constructor(
-        private userService: UserService
-    ){
+        private userService: UserService,
+        private productService: ProductsService,
+    ) {
 
     }
-    
-    
-    upload(path: string,id:string) {
-        return this.userService.updateOneProfilPic(path, id);
-    }
 
+
+    uploadProductImages(filePath: any, productId: any) {
+        return this.productService.addProductPic(filePath, productId);
+    }
+    uploadProfilImages(filePath: any, userId: any) {
+        return this.userService.updateOneProfilPic(filePath, userId);
+    }
 
 
 }
