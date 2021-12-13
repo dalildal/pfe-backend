@@ -17,7 +17,6 @@ import { ProductsService } from '../services/products.service';
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) { }
 
-    @UseGuards(JwtAuthGuard)
     @Post()
     async addProduct(
         @Body('idUser') prodIdUser: string,
