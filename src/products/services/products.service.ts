@@ -71,6 +71,14 @@ export class ProductsService {
         return products;
     }
 
+    async getProductsOnHold() {
+        let products = await this.findAllProducts();
+        products = (await products).filter(prod =>
+            prod.state.toLowerCase() === "en attente"
+        );
+        return products;
+    }
+
     async getSingleProduct(productId: string) {
         const product = await this.findProduct(productId);
         return {
