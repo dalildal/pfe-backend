@@ -49,6 +49,10 @@ export class ProductsController {
             return products;
         }
     }
+    @Get('/onhold')
+    getProductsOnHold() {
+        return this.productsService.getProductsOnHold();
+    }
 
     @Get(':id')
     getProduct(@Param('id') prodId: string) {
