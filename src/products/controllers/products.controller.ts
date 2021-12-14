@@ -15,18 +15,18 @@ import { ProductsService } from '../services/products.service';
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) { }
 
-    @Post()
-    async addProduct(
-        @Body('idUser') prodIdUser: string,
-        @Body('state') prodState: string,
-        @Body('title') prodTitle: string,
-        @Body('description') prodDesc: string,
-        @Body('price') prodPrice: number,
-        @Body('idCategory') prodIdCategory: string,
-        @Body('address') prodAddress: string,
-    ) {
-        const generatedId = await this.productsService.insertProduct(
-            prodIdUser,
+@Post()
+async addProduct(
+    @Body('idUser') prodIdUser: string,
+    @Body('state') prodState: string,
+    @Body('title') prodTitle: string,
+    @Body('description') prodDesc: string,
+    @Body('price') prodPrice: number,
+    @Body('idCategory') prodIdCategory: string,
+    @Body('address') prodAddress: string,
+) {
+    const generatedId = await this.productsService.insertProduct(
+        prodIdUser,
             prodState,
             prodTitle,
             prodDesc,
