@@ -35,11 +35,8 @@ export class ProductsController {
             prodDesc,
             prodPrice,
             prodIdCategory,
-<<<<<<< HEAD
             prodAddress,
-=======
             new Array(),
->>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
         );
         return { id: generatedId };
     }

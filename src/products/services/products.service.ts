@@ -12,11 +12,7 @@ export class ProductsService {
         @InjectModel('Product') private readonly productModel: Model<Product>,
     ) { }
 
-<<<<<<< HEAD
-    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {
-=======
-    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, liste: string[]) {
->>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
+    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string, liste: string[]) {
         const newProduct = new this.productModel({
             idUser,
             state,
@@ -24,11 +20,8 @@ export class ProductsService {
             description: desc,
             price,
             idCategory,
-<<<<<<< HEAD
             address,
-=======
             liste,
->>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
         });
         const result = await newProduct.save();
         return result.id as string;
@@ -44,11 +37,8 @@ export class ProductsService {
             description: prod.description,
             price: prod.price,
             idCategory: prod.idCategory,
-<<<<<<< HEAD
             address: prod.address,
-=======
             liste: prod.liste,
->>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
         }));
     }
 
@@ -76,7 +66,6 @@ export class ProductsService {
         return products;
     }
 
-<<<<<<< HEAD
     async getProductsByPriceASC() {
         let products = await this.findAllProducts();
         products = (await products).sort((prod1, prod2) => {
@@ -84,7 +73,8 @@ export class ProductsService {
         }
         );
         return products;
-=======
+    }
+    
     async deleteImage(fileId: any, productId: string) {
         console.log("Product Id :: " + productId);
         console.log(fileId);
@@ -99,7 +89,6 @@ export class ProductsService {
         }
         console.log("Nouvelle liste :: " + product.liste);
         product.save();
->>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
     }
 
     async getSingleProduct(productId: string) {
@@ -112,14 +101,7 @@ export class ProductsService {
             description: product.description,
             price: product.price,
             idCategory: product.idCategory,
-<<<<<<< HEAD
             address: product.address,
-        };
-    }
-
-    async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {
-=======
-            liste: product.liste
         };
     }
 
@@ -129,8 +111,7 @@ export class ProductsService {
         updatedProduct.save();
     }
 
-    async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string) {
->>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
+    async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {
         const updatedProduct = await this.findProduct(productId);
 
         if (updatedProduct.idUser != idUser) {
