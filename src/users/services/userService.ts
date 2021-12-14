@@ -7,20 +7,14 @@ import { LoginUserDto } from "../models/DTO/loginUser.dto";
 import { AuthService } from "src/auth/services/authService";
 import { from } from "rxjs";
 
-
-
 @Injectable()
 export class UserService {
-
-
-
     jwtService: any;
 
     constructor(
         @InjectModel('User')
         private readonly userModel: Model<User>,
         private authService: AuthService
-
     ) {
 
     }
@@ -41,13 +35,16 @@ export class UserService {
         this.userModel.findById
     }
 
-
-
     async updateOneProfilPic(path: string, id: string) {
         const updatedUser = await this.userModel.findById(id);
         updatedUser.url_profil_pic = path;
         updatedUser.save();
+    }
 
+    async updateCampus(campus: number, id: string) {
+        const updatedUser = await this.userModel.findById(id);
+        updatedUser.campus = campus;
+        updatedUser.save();
     }
 
     async getUsers() {
@@ -70,7 +67,6 @@ export class UserService {
         let user = await newUser.save();
         return user.id as string;
     }
-
 
     private async findUserByEmail(email: string): Promise<User> {
         return await this.userModel.findOne({ email });
