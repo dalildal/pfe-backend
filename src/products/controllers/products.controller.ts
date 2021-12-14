@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
+import { Res, UseGuards } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
@@ -32,7 +33,11 @@ export class ProductsController {
             prodDesc,
             prodPrice,
             prodIdCategory,
+<<<<<<< HEAD
             prodAddress,
+=======
+            new Array(),
+>>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
         );
         return { id: generatedId };
     }
@@ -73,4 +78,18 @@ export class ProductsController {
         await this.productsService.deleteProduct(prodId);
         return null;
     }
+
+    @Get('product-images/:fileId')
+    async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
+        res.sendFile(fileId, { root: "uploads/product-images" });
+    }
+
+    @Delete('product-images/:fileId/:productid')
+    async deleteImage(@Param('fileId') fileId, @Param('productid') productId: any): Promise<any> {
+        console.log(fileId);
+        console.log(productId);
+        this.productsService.deleteImage(fileId, productId);
+    }
+
+
 }

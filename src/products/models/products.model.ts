@@ -7,7 +7,11 @@ export const ProductSchema = new mongoose.Schema({
     description: { type: String, required: true },
     price: { type: Number, required: true },
     idCategory: { type: String, required: true },
+<<<<<<< HEAD
     address: { type: String, required: true },
+=======
+    liste: Array,
+>>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
     //creationDate: { type: Date, required: true }
     // voir PAE pour les images - listes d'images ? vidéos ?
 });
@@ -20,6 +24,10 @@ export interface Product extends mongoose.Document {
     description: string;
     price: number;
     idCategory: string;
+<<<<<<< HEAD
     address: string;
+=======
+    liste: string[]
+>>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
     //creationDate: Date;
 }

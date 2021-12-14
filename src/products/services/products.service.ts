@@ -6,11 +6,17 @@ import { Product } from '../models/products.model';
 
 @Injectable()
 export class ProductsService {
+
+
     constructor(
         @InjectModel('Product') private readonly productModel: Model<Product>,
     ) { }
 
+<<<<<<< HEAD
     async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {
+=======
+    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, liste: string[]) {
+>>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
         const newProduct = new this.productModel({
             idUser,
             state,
@@ -18,7 +24,11 @@ export class ProductsService {
             description: desc,
             price,
             idCategory,
+<<<<<<< HEAD
             address,
+=======
+            liste,
+>>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
         });
         const result = await newProduct.save();
         return result.id as string;
@@ -34,7 +44,11 @@ export class ProductsService {
             description: prod.description,
             price: prod.price,
             idCategory: prod.idCategory,
+<<<<<<< HEAD
             address: prod.address,
+=======
+            liste: prod.liste,
+>>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
         }));
     }
 
@@ -62,6 +76,7 @@ export class ProductsService {
         return products;
     }
 
+<<<<<<< HEAD
     async getProductsByPriceASC() {
         let products = await this.findAllProducts();
         products = (await products).sort((prod1, prod2) => {
@@ -69,6 +84,22 @@ export class ProductsService {
         }
         );
         return products;
+=======
+    async deleteImage(fileId: any, productId: string) {
+        console.log("Product Id :: " + productId);
+        console.log(fileId);
+        const product = await this.findProduct(productId)
+        for (var i = 0; i < product.liste.length; i++) {
+
+            if (product.liste[i] === fileId) {
+                console.log(product.liste.splice(i, 1));
+                i--;
+            }
+
+        }
+        console.log("Nouvelle liste :: " + product.liste);
+        product.save();
+>>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
     }
 
     async getSingleProduct(productId: string) {
@@ -81,11 +112,25 @@ export class ProductsService {
             description: product.description,
             price: product.price,
             idCategory: product.idCategory,
+<<<<<<< HEAD
             address: product.address,
         };
     }
 
     async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {
+=======
+            liste: product.liste
+        };
+    }
+
+    async addProductPic(filePath: any, productId: any) {
+        const updatedProduct = await this.findProduct(productId);
+        updatedProduct.liste.push(filePath);
+        updatedProduct.save();
+    }
+
+    async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string) {
+>>>>>>> 12682d6f89c01f1837921abaa1548910629d0e8a
         const updatedProduct = await this.findProduct(productId);
 
         if (updatedProduct.idUser != idUser) {
