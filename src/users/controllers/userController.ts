@@ -1,4 +1,4 @@
-import { Res, UseGuards } from '@nestjs/common';
+import { Patch, Res, UseGuards } from '@nestjs/common';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -37,6 +37,14 @@ export class UserController {
         return 'remove a user';
     }
 
+    @Patch(':id')
+    async updateUserCampus(
+        @Param('id') userId: string,
+        @Body('campus') campus: number,
+    ) {
+        await this.userService.updateCampus(campus, userId);
+        return null;
+    }
 
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
