@@ -8,6 +8,7 @@ export const ProductSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     idCategory: { type: String, required: true },
     address: { type: String, required: true },
+    liste: Array,
     //creationDate: { type: Date, required: true }
     // voir PAE pour les images - listes d'images ? vidéos ?
 });
@@ -21,5 +22,6 @@ export interface Product extends mongoose.Document {
     price: number;
     idCategory: string;
     address: string;
+    liste: string[];
     //creationDate: Date;
 }

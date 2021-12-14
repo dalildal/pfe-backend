@@ -7,11 +7,11 @@ import {
     Patch,
     Delete,
     Query,
-    UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
+import { Res, UseGuards } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
@@ -35,6 +35,7 @@ async addProduct(
             prodPrice,
             prodIdCategory,
             prodAddress,
+            new Array(),
         );
         return { id: generatedId };
     }
@@ -81,4 +82,18 @@ async addProduct(
         await this.productsService.deleteProduct(prodId);
         return null;
     }
+
+    @Get('product-images/:fileId')
+    async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
+        res.sendFile(fileId, { root: "uploads/product-images" });
+    }
+
+    @Delete('product-images/:fileId/:productid')
+    async deleteImage(@Param('fileId') fileId, @Param('productid') productId: any): Promise<any> {
+        console.log(fileId);
+        console.log(productId);
+        this.productsService.deleteImage(fileId, productId);
+    }
+
+
 }

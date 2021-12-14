@@ -21,6 +21,9 @@ GET http://localhost:3000/products/61b32cbe077d6f98f1d4130f
 Content-Type: application/json
 ###
 
+GET http://localhost:3000/products/product-images/banane8cfaff50-d549-4ba4-af3e-2cf6acc3d6c1.jpg
+Content-Type: application/json
+###
 DELETE  http://localhost:3000/products/61b32da6077d6f98f1d41319
 Content-Type: application/json
 ###

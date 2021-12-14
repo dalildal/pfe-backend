@@ -7,9 +7,10 @@ import { UserModule } from 'src/users/user.module';
 
 import { UploadService } from './services/upload.service';
 import { AuthModule } from 'src/auth/auth.module';
+import { ProductsModule } from 'src/products/products.module';
 
 @Module({
-  imports: [UserModule,AuthModule],
+  imports: [UserModule, ProductsModule, AuthModule],
   controllers: [UploadController],
   providers: [UploadService],
 })

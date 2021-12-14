@@ -1,4 +1,4 @@
-import { UseGuards } from '@nestjs/common';
+import { Patch, Res, UseGuards } from '@nestjs/common';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -21,6 +21,11 @@ export class UserController {
         return this.userService.getUser(id);
     }
 
+    @Get('profil-images/:fileId')
+    async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
+        res.sendFile(fileId, { root: "uploads/profil-images" });
+    }
+
     @Put(':id')
     updateUser(@Param('id') id: String, @Body() userdto: User) {
         return 'update a user';
@@ -31,7 +36,15 @@ export class UserController {
         return 'remove a user';
     }
 
-    
+    @Patch(':id')
+    async updateUserCampus(
+        @Param('id') userId: string,
+        @Body('campus') campus: number,
+    ) {
+        await this.userService.updateCampus(campus, userId);
+        return null;
+    }
+
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
         return (await this.userService.verify(userDTO)).pipe(
@@ -39,8 +52,8 @@ export class UserController {
                 return{
                     user : await this.userService.findUserByEmail(userDTO.email),
                     access_token: jwt,
-                    token_type:'JWT',
-                    exprires_in:10000
+                    token_type: 'JWT',
+                    exprires_in: 10000
                 }
             })
         )
@@ -48,9 +61,7 @@ export class UserController {
 
     @Post('register')
     async createUser(@Body() userdto: User) {
-
         return await this.userService.create(userdto);
-
     }
 
 }
