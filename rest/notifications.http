@@ -1,0 +1,17 @@
+POST http://localhost:3000/notifications
+Content-Type: application/json
+
+{
+    "idUser": "61af4d49b82ce6de16f8fa4c",
+    "idProduct": "61af4d49bfezfzeqfsfsdq",
+    "state": "Pas qsdfqsdflu",
+    "title": "Notif qsdfqsdfJOJO' ",
+    "description": "PSAqsfdqsdfqsdISON 6 SORTIE" 
+    }
+
+###
+
+
+GET http://localhost:3000/notifications/61af4d49b82ce6de16f8fa4c
+Content-Type: application/json
+###
