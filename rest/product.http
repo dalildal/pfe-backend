@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/products/onhold
+GET http://localhost:3000/products
 Content-Type: application/json
 ###
 
@@ -34,7 +34,7 @@ Content-Type: application/json
     "title": "Tablier labo",
     "description": "Tablier labo en or massif pour BLOC 7 - CHIMIE",
     "price": "255",
-    "idCategory": "55"
+    "idCategory": "55",
 }
 
 ###

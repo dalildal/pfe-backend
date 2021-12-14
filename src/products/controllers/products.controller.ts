@@ -59,7 +59,7 @@ async addProduct(
         return this.productsService.getSingleProduct(prodId);
     }
 
-    @UseGuards(JwtAuthGuard)
+    
     @Patch(':id')
     async updateProduct(
         @Param('id') prodId: string,
