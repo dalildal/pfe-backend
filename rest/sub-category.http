@@ -1,0 +1,21 @@
+POST http://localhost:3000/subcategories
+Content-Type: application/json
+
+{
+    "idCategory": "61b3637cd43fcc005155f334",
+    "name": "Téléphones mobiles"
+}
+
+###
+
+GET http://localhost:3000/subcategories
+Content-Type: application/json
+###
+
+GET http://localhost:3000/subcategories/61b377843cb6b131c8aa9a1d
+Content-Type: application/json
+###
+
+DELETE  http://localhost:3000/subcategories/61b376fd3cb6b131c8aa9a16
+Content-Type: application/json
+###
