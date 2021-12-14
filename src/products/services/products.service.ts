@@ -20,8 +20,8 @@ export class ProductsService {
             description: desc,
             price,
             idCategory,
-            liste,
             address,
+            liste,
         });
         const result = await newProduct.save();
         return result.id as string;
@@ -115,6 +115,7 @@ export class ProductsService {
 
     async addProductPic(filePath: any, productId: any) {
         const updatedProduct = await this.findProduct(productId);
+        console.log(updatedProduct);
         updatedProduct.liste.push(filePath);
         updatedProduct.save();
     }
