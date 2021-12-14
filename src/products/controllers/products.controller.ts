@@ -7,7 +7,9 @@ import {
     Patch,
     Delete,
     Query,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 
@@ -47,12 +49,17 @@ async addProduct(
             return products;
         }
     }
+    @Get('/onhold')
+    getProductsOnHold() {
+        return this.productsService.getProductsOnHold();
+    }
 
     @Get(':id')
     getProduct(@Param('id') prodId: string) {
         return this.productsService.getSingleProduct(prodId);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Patch(':id')
     async updateProduct(
         @Param('id') prodId: string,
@@ -68,6 +75,7 @@ async addProduct(
         return null;
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async removeProduct(@Param('id') prodId: string) {
         await this.productsService.deleteProduct(prodId);
