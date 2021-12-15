@@ -6,11 +6,13 @@ import { Product } from '../models/products.model';
 
 @Injectable()
 export class ProductsService {
+
+
     constructor(
         @InjectModel('Product') private readonly productModel: Model<Product>,
     ) { }
 
-    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {
+    async insertProduct(idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string,liste: string[]) {
         const newProduct = new this.productModel({
             idUser,
             state,
@@ -19,6 +21,7 @@ export class ProductsService {
             price,
             idCategory,
             address,
+            liste,
         });
         const result = await newProduct.save();
         return result.id as string;
@@ -34,6 +37,7 @@ export class ProductsService {
             description: prod.description,
             price: prod.price,
             idCategory: prod.idCategory,
+            liste: prod.liste,
             address: prod.address,
         }));
     }
@@ -62,11 +66,35 @@ export class ProductsService {
         return products;
     }
 
+    async deleteImage(fileId: any, productId: string) {
+        console.log("Product Id :: " + productId);
+        console.log(fileId);
+        const product = await this.findProduct(productId)
+        for (var i = 0; i < product.liste.length; i++) {
+
+            if (product.liste[i] === fileId) {
+                console.log(product.liste.splice(i, 1));
+                i--;
+            }
+
+        }
+        console.log("Nouvelle liste :: " + product.liste);
+        product.save();
+    }
+    
     async getProductsByPriceASC() {
         let products = await this.findAllProducts();
         products = (await products).sort((prod1, prod2) => {
             return prod1.price - prod2.price;
         }
+        );
+        return products;
+    }
+
+    async getProductsOnHold() {
+        let products = await this.findAllProducts();
+        products = (await products).filter(prod =>
+            prod.state.toLowerCase() === "en attente"
         );
         return products;
     }
@@ -81,8 +109,15 @@ export class ProductsService {
             description: product.description,
             price: product.price,
             idCategory: product.idCategory,
-            address: product.address,
+            liste: product.liste
         };
+    }
+
+    async addProductPic(filePath: any, productId: any) {
+        const updatedProduct = await this.findProduct(productId);
+        console.log(updatedProduct);
+        updatedProduct.liste.push(filePath);
+        updatedProduct.save();
     }
 
     async updateProduct(productId: string, idUser: string, state: string, title: string, desc: string, price: number, idCategory: string, address: string) {

@@ -5,21 +5,16 @@ import * as bcrypt from 'bcrypt';
 import { User } from "../models/user.interface"
 import { LoginUserDto } from "../models/DTO/loginUser.dto";
 import { AuthService } from "src/auth/services/authService";
-import { from } from "rxjs/internal/observable/from";
-
+import { from } from "rxjs";
 
 @Injectable()
 export class UserService {
-    updateOne(id: User, arg1: { profileImage: any; }) {
-        throw new Error("Method not implemented.");
-    }
     jwtService: any;
 
     constructor(
         @InjectModel('User')
         private readonly userModel: Model<User>,
         private authService: AuthService
-
     ) {
 
     }
@@ -37,9 +32,20 @@ export class UserService {
     }
 
     getUser(id: string) {
-        this.userModel.findById
+        return this.userModel.findById(id)
     }
 
+    async updateOneProfilPic(path: string, id: string) {
+        const updatedUser = await this.userModel.findById(id);
+        updatedUser.url_profil_pic = path;
+        updatedUser.save();
+    }
+
+    async updateCampus(campus: number, id: string) {
+        const updatedUser = await this.userModel.findById(id);
+        updatedUser.campus = campus;
+        updatedUser.save();
+    }
 
     async getUsers() {
         const users = await this.userModel.find().exec();
@@ -63,7 +69,7 @@ export class UserService {
     }
 
 
-    private async findUserByEmail(email: string): Promise<User> {
+    public async findUserByEmail(email: string): Promise<User> {
         return await this.userModel.findOne({ email });
     }
 

@@ -26,7 +26,12 @@ Content-Type: application/json
 
 
 ###TEST changeStateMerchandise
-GET http://localhost:3000/user/1
-
+GET http://localhost:3000/user
 ###
 
+PATCH http://localhost:3000/user/61b4ac9d742695762ba50068
+Content-Type: application/json
+
+{
+    "campus": 2
+}
