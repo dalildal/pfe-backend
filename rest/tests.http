@@ -35,3 +35,7 @@ Content-Type: application/json
 {
     "campus": 2
 }
+###
+
+PATCH http://localhost:3000/user/61af4d49b82ce6de16f8fa4c/isactive
+Content-Type: application/json

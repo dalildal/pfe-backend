@@ -26,11 +26,6 @@ export class UserController {
         res.sendFile(fileId, { root: "uploads/profil-images" });
     }
 
-    @Put(':id')
-    updateUser(@Param('id') id: String, @Body() userdto: User) {
-        return 'update a user';
-    }
-
     @Delete(':id')
     remove(@Param('id') id: String) {
         return 'remove a user';
@@ -48,9 +43,9 @@ export class UserController {
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
         return (await this.userService.verify(userDTO)).pipe(
-            map(async (jwt:string) =>{
-                return{
-                    user : await this.userService.findUserByEmail(userDTO.email),
+            map(async (jwt: string) => {
+                return {
+                    user: await this.userService.findUserByEmail(userDTO.email),
                     access_token: jwt,
                     token_type: 'JWT',
                     exprires_in: 10000
@@ -62,6 +57,12 @@ export class UserController {
     @Post('register')
     async createUser(@Body() userdto: User) {
         return await this.userService.create(userdto);
+    }
+
+    @Patch(':id/isactive')
+    async updateUserStatus(@Param('id') id: string) {
+        await this.userService.updateUserStatus(id);
+        return null;
     }
 
 }
