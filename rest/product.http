@@ -43,3 +43,13 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/products?sort=DESC&search=2
 Content-Type: application/json
+
+
+
+###
+GET   http://localhost:3000/products/productsUser/61b62db34c104c7a696511f0
+Content-Type: application/json
+
+{
+    "idUser": "61b62db34c104c7a696511f0"
+}
