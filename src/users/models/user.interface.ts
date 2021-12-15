@@ -8,8 +8,8 @@ export const UserSchema = new mongoose.Schema({
     campus:{type: Number, required : true},
     email: {type: String, required : true},
     password: {type: String, required : true},
-    is_admin: Boolean,
-    is_active: Boolean,
+    is_admin: {type: Boolean, required : false} ,
+    is_active: {type: Boolean, required : false},
     url_profil_pic: String,
 
 })
@@ -17,7 +17,7 @@ export const UserSchema = new mongoose.Schema({
 export interface User {
     id:string;
 
-   
+
     name: string;
     lastname: string;
     campus:number;
