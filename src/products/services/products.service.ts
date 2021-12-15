@@ -172,4 +172,18 @@ export class ProductsService {
     private async findAllProducts() {
         return this.productModel.find().exec();
     }
+
+    async getProductsByIdUser(idUser: string) {
+        const products = await this.findAllProducts();
+        const not = Array();
+        products.forEach(element => {
+
+            if (element.idUser === idUser) {
+                not.push(element);
+            }
+
+        });
+
+        return not;
+    }
 }
