@@ -33,17 +33,7 @@ export class UserController {
         }
     }
 
-    @UseGuards(JwtAuthGuard)
-    @Put(':id')
-    updateUser(@Param('id') id: String, @Body() userdto: User) {
-        return 'update a user';
-    }
 
-    @UseGuards(JwtAuthGuard)
-    @Delete(':id')
-    remove(@Param('id') id: String) {
-        return 'remove a user';
-    }
 
     @Patch(':id')
     async updateUserCampus(

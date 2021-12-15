@@ -47,8 +47,6 @@ export const storageProduct = {
 export class UploadController {
   constructor(private uploadService: UploadService) { }
 
-
-  @UseGuards(JwtAuthGuard)
   @Post('profil-images')
   @UseInterceptors(FileInterceptor('file', storageProfile))
   uploadFile(@UploadedFile() file, @Body() userId: any): Observable<Object> {
@@ -59,7 +57,6 @@ export class UploadController {
     return of({ imagePath: file.path })
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post('product-images')
   @UseInterceptors(FileInterceptor('file', storageProduct))
   uploadFileProduct(@UploadedFile() file, @Body() userId: any): Observable<Object> {

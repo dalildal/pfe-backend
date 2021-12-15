@@ -26,6 +26,9 @@ export class UserService {
         if (!user) {
             throw new HttpException('La connexion a échoué.', HttpStatus.UNAUTHORIZED);
         }
+        if (!user.is_active) {
+            throw new HttpException(`L'utilisateur est banni`, HttpStatus.FORBIDDEN);
+        }
         const isMatch = await bcrypt.compare(loginUser.password, user.password);
         if (!isMatch) {
             throw new HttpException('Mauvais email ou mot de passe ', HttpStatus.UNAUTHORIZED);
