@@ -2,18 +2,18 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-    "idUser": "61af4d49b82ce6de16f8fa4c",
-    "state": "Donner",
-    "title": "Tablier labo",
-    "description": "Tablier labo pour BLOC 2 - Chimie",
-    "price": "0",
-    "idCategory": "55"
-    
+    "idUser": "61b62db34c104c7a696511f0",
+    "state": "En Attente",
+    "title": "iPhone 12 128go",
+    "description": "iPhone 12 128go parfait etat",
+    "price": 969,
+    "idCategory": "61b37aff3cb6b131c8aa9a4a",
+    "address": "Clos chappel au champ 43 Woluwe"
     }
 
 ###
 
-GET http://localhost:3000/products
+GET http://localhost:3000/products/onhold
 Content-Type: application/json
 ###
 
@@ -21,6 +21,9 @@ GET http://localhost:3000/products/61b32cbe077d6f98f1d4130f
 Content-Type: application/json
 ###
 
+GET http://localhost:3000/products/product-images/banane8cfaff50-d549-4ba4-af3e-2cf6acc3d6c1.jpg
+Content-Type: application/json
+###
 DELETE  http://localhost:3000/products/61b32da6077d6f98f1d41319
 Content-Type: application/json
 ###
@@ -38,5 +41,5 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/products?search=cHim
+GET http://localhost:3000/products?sort=DESC&search=2
 Content-Type: application/json

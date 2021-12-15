@@ -8,6 +8,7 @@ import {
     Delete,
     Query,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 import { Res, UseGuards } from '@nestjs/common';
@@ -26,6 +27,7 @@ export class ProductsController {
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
         @Body('idCategory') prodIdCategory: string,
+        @Body('address') prodAddress: string,
     ) {
         const generatedId = await this.productsService.insertProduct(
             prodIdUser,
@@ -34,6 +36,7 @@ export class ProductsController {
             prodDesc,
             prodPrice,
             prodIdCategory,
+            prodAddress,
             new Array(),
         );
         return { id: generatedId };
@@ -49,6 +52,10 @@ export class ProductsController {
             const products = await this.productsService.getProducts();
             return products;
         }
+    }
+    @Get('/onhold')
+    getProductsOnHold() {
+        return this.productsService.getProductsOnHold();
     }
 
     @Get(':id')
@@ -66,8 +73,9 @@ export class ProductsController {
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
         @Body('idCategory') prodIdCategory: string,
+        @Body('address') prodAddress: string,
     ) {
-        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory);
+        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory, prodAddress);
         return null;
     }
 
