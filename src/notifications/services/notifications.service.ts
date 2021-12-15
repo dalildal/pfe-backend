@@ -31,10 +31,14 @@ export class NotificationService {
         return notifications;
     }
 
-    async updateState(idNotif: string) {
-        const updatedNotif = await this.notificationModel.findById(idNotif);
-        updatedNotif.state = true;
-        updatedNotif.save();
+    async updateState(idNotif: string, idUser: string) {
+        const notifsUser = await this.getNotificationsByIdUser(idUser);
+        notifsUser.forEach(
+            notif => notif.state = true
+        )
+        notifsUser.forEach(
+            notif => notif.save()
+        )
     }
 
     private async findAllNotifications() {

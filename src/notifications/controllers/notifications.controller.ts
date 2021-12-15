@@ -30,8 +30,8 @@ export class NotificationController {
 
     @Patch(':id')
     async updateNotifStatus(
-        @Param('id') notifId: string) {
-        await this.notificationsService.updateState(notifId);
+        @Param('id') notifId: string, @Body('idUser') notIdUser: string) {
+        await this.notificationsService.updateState(notifId, notIdUser);
         return null;
     }
 
