@@ -31,8 +31,6 @@ export class UserController {
         }
     }
 
-
-
     @Patch(':id')
     async updateUserCampus(
         @Param('id') userId: string,
@@ -59,6 +57,12 @@ export class UserController {
     @Post('register')
     async createUser(@Body() userdto: User) {
         return await this.userService.create(userdto);
+    }
+
+    @Patch(':id/isactive')
+    async updateUserStatus(@Param('id') id: string) {
+        await this.userService.updateUserStatus(id);
+        return null;
     }
 
 }

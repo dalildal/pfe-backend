@@ -59,6 +59,12 @@ export class UserService {
         updatedUser.save();
     }
 
+    async updateUserStatus(id: string) {
+        const updatedUser = await this.userModel.findById(id);
+        updatedUser.is_active = !updatedUser.is_active;
+        updatedUser.save();
+    }
+
     async getUsers() {
         const users = await this.userModel.find().exec();
         return users;
@@ -82,7 +88,6 @@ export class UserService {
         let user = await newUser.save();
         return user.id as string;
     }
-
 
     public async findUserByEmail(email: string): Promise<User> {
         return await this.userModel.findOne({ email });

@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/products/onhold
+GET http://localhost:3000/products
 Content-Type: application/json
 ###
 
