@@ -31,7 +31,7 @@ export class NotificationService {
         return notifications;
     }
 
-    async updateState(idNotif: string, idUser: string) {
+    async updateState(idUser: string) {
         const notifsUser = await this.getNotificationsByIdUser(idUser);
         notifsUser.forEach(
             notif => notif.state = true
