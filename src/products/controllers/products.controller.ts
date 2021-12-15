@@ -11,11 +11,13 @@ import {
 import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 import { Res, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('products')
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) { }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async addProduct(
         @Body('idUser') prodIdUser: string,
@@ -37,6 +39,7 @@ export class ProductsController {
         return { id: generatedId };
     }
 
+
     @Get()
     async getAllProducts(@Query() filterDto: GetProductsFilterDto) {
         if (Object.keys(filterDto).length) {
@@ -53,6 +56,7 @@ export class ProductsController {
         return this.productsService.getSingleProduct(prodId);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Patch(':id')
     async updateProduct(
         @Param('id') prodId: string,
@@ -67,17 +71,20 @@ export class ProductsController {
         return null;
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async removeProduct(@Param('id') prodId: string) {
         await this.productsService.deleteProduct(prodId);
         return null;
     }
 
+
     @Get('product-images/:fileId')
     async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
         res.sendFile(fileId, { root: "uploads/product-images" });
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('product-images/:fileId/:productid')
     async deleteImage(@Param('fileId') fileId, @Param('productid') productId: any): Promise<any> {
         console.log(fileId);

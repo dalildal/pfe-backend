@@ -1,10 +1,12 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { SubCategoriesService } from '../services/sub-categories.service';
 
 @Controller('subcategories')
 export class SubCategoriesController {
     constructor(private readonly subCategoriesService: SubCategoriesService) { }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async addSubCategory(
         @Body('idCategory') idCategory: string,
@@ -28,6 +30,7 @@ export class SubCategoriesController {
         return this.subCategoriesService.getSingleSubCategory(subCatId);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Patch(':id')
     async updateSubCategory(
         @Param('id') subCatId: string,
@@ -38,6 +41,7 @@ export class SubCategoriesController {
         return null;
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async removeSubCategory(@Param('id') subCatId: string) {
         await this.subCategoriesService.deleteSubCategory(subCatId);
