@@ -11,6 +11,7 @@ export class UserController {
 
     constructor(private userService: UserService) { }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     async getUsers() {
         return await this.userService.getUsers();
@@ -23,18 +24,15 @@ export class UserController {
 
     @Get('profil-images/:fileId')
     async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
-        res.sendFile(fileId, { root: "uploads/profil-images" });
+        try {
+            res.sendFile(fileId, { root: "uploads/profil-images" });
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 
-    @Put(':id')
-    updateUser(@Param('id') id: String, @Body() userdto: User) {
-        return 'update a user';
-    }
 
-    @Delete(':id')
-    remove(@Param('id') id: String) {
-        return 'remove a user';
-    }
 
     @Patch(':id')
     async updateUserCampus(

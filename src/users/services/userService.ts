@@ -6,6 +6,8 @@ import { User } from "../models/user.interface"
 import { LoginUserDto } from "../models/DTO/loginUser.dto";
 import { AuthService } from "src/auth/services/authService";
 import { from } from "rxjs";
+const fs = require('fs');
+
 
 @Injectable()
 export class UserService {
@@ -22,11 +24,14 @@ export class UserService {
     async verify(loginUser: LoginUserDto) {
         let user: User = await this.findUserByEmail(loginUser.email);
         if (!user) {
-            throw new HttpException('Login was not Successfull', HttpStatus.UNAUTHORIZED);
+            throw new HttpException('La connexion a échoué.', HttpStatus.UNAUTHORIZED);
+        }
+        if (!user.is_active) {
+            throw new HttpException(`L'utilisateur est banni`, HttpStatus.FORBIDDEN);
         }
         const isMatch = await bcrypt.compare(loginUser.password, user.password);
         if (!isMatch) {
-            throw new HttpException('Wrong password or email', HttpStatus.UNAUTHORIZED);
+            throw new HttpException('Mauvais email ou mot de passe ', HttpStatus.UNAUTHORIZED);
         }
         return from(this.authService.generateJwt(user));
     }
@@ -37,6 +42,13 @@ export class UserService {
 
     async updateOneProfilPic(path: string, id: string) {
         const updatedUser = await this.userModel.findById(id);
+        let oldUrl = updatedUser.url_profil_pic;
+        try {
+            fs.unlinkSync('./uploads/profil-images' + oldUrl);
+        } catch (err) {
+            console.log(err)
+        }
+
         updatedUser.url_profil_pic = path;
         updatedUser.save();
     }
@@ -64,6 +76,9 @@ export class UserService {
         }
         const salt = await bcrypt.genSalt();
         newUser.password = await bcrypt.hash(newUser.password, salt);
+        if (newUser.url_profil_pic === null) {
+            newUser.url_profil_pic = 'default.jpg'
+        }
         let user = await newUser.save();
         return user.id as string;
     }

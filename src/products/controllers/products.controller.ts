@@ -13,22 +13,24 @@ import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 import { Res, UseGuards } from '@nestjs/common';
 
+
 @Controller('products')
 export class ProductsController {
     constructor(private readonly productsService: ProductsService) { }
 
-@Post()
-async addProduct(
-    @Body('idUser') prodIdUser: string,
-    @Body('state') prodState: string,
-    @Body('title') prodTitle: string,
-    @Body('description') prodDesc: string,
-    @Body('price') prodPrice: number,
-    @Body('idCategory') prodIdCategory: string,
-    @Body('address') prodAddress: string,
-) {
-    const generatedId = await this.productsService.insertProduct(
-        prodIdUser,
+    @UseGuards(JwtAuthGuard)
+    @Post()
+    async addProduct(
+        @Body('idUser') prodIdUser: string,
+        @Body('state') prodState: string,
+        @Body('title') prodTitle: string,
+        @Body('description') prodDesc: string,
+        @Body('price') prodPrice: number,
+        @Body('idCategory') prodIdCategory: string,
+        @Body('address') prodAddress: string,
+    ) {
+        const generatedId = await this.productsService.insertProduct(
+            prodIdUser,
             prodState,
             prodTitle,
             prodDesc,
@@ -39,6 +41,7 @@ async addProduct(
         );
         return { id: generatedId };
     }
+
 
     @Get()
     async getAllProducts(@Query() filterDto: GetProductsFilterDto) {
@@ -83,11 +86,13 @@ async addProduct(
         return null;
     }
 
+
     @Get('product-images/:fileId')
     async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
         res.sendFile(fileId, { root: "uploads/product-images" });
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('product-images/:fileId/:productid')
     async deleteImage(@Param('fileId') fileId, @Param('productid') productId: any): Promise<any> {
         console.log(fileId);
