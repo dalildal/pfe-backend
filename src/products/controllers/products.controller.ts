@@ -79,11 +79,19 @@ export class ProductsController {
         @Body('idCategory') prodIdCategory: string,
         @Body('address') prodAddress: string,
     ) {
-        if (prodState === 'Valider') {
-            //TODO (Notify -> Votre annonce est validé)
+        if (prodState === 'A vendre') {
+            this.notificationService.createNotification(prodIdUser, prodId, false, "Produit modifié", "Votre annonce a été validé");
         }
-        if (prodState === '')
-            await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory, prodAddress);
+        else if (prodState === 'Supprimer') {
+            this.notificationService.createNotification(prodIdUser, prodId, false, "Produit modifié", "Votre annonce a été supprimé");
+        }
+        else if (prodState === 'A donner') {
+            this.notificationService.createNotification(prodIdUser, prodId, false, "Produit modifié", "Votre produit a été vendu");
+        }
+        else if (prodState === 'Vendu') {
+            this.notificationService.createNotification(prodIdUser, prodId, false, "Produit modifié", "Votre produit a été vendu");
+        }
+        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory, prodAddress);
 
         return null;
     }

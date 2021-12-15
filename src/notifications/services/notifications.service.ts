@@ -27,6 +27,7 @@ export class NotificationService {
     async getNotificationsByIdUser(idUser: string) {
         const notifications = await this.findAllNotifications();
         notifications.filter(notifications => notifications.idUser = idUser)
+        console.log(notifications);
         return notifications;
     }
 
