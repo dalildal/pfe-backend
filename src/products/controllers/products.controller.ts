@@ -12,7 +12,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 import { Res, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+
 
 @Controller('products')
 export class ProductsController {
