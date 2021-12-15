@@ -15,7 +15,7 @@ export class NotificationController {
         @Body('state') notState: boolean,
         @Body('title') notTitle: string,
         @Body('description') notDesc: string,
-        @Body('idUserBuyer') notIdUserBuyer: string,
+
 
     ) {
         const generatedId = await this.notificationsService.createNotification(
@@ -23,8 +23,7 @@ export class NotificationController {
             notIdProduct,
             notState,
             notTitle,
-            notDesc,
-            notIdUserBuyer,
+            notDesc
         );
         return { id: generatedId };
     }

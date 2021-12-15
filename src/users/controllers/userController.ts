@@ -23,12 +23,12 @@ export class UserController {
 
     @Get('profil-images/:fileId')
     async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
-        res.sendFile(fileId, { root: "uploads/profil-images" });
-    }
+        try {
+            res.sendFile(fileId, { root: "uploads/profil-images" });
 
-    @Delete(':id')
-    remove(@Param('id') id: String) {
-        return 'remove a user';
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     @Patch(':id')

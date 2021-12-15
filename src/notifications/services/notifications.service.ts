@@ -12,14 +12,13 @@ export class NotificationService {
 
     ) { }
 
-    async createNotification(idUser: string, idProduct: string, state: boolean, title: string, description: string, idUserBuyer: string) {
+    async createNotification(idUser: string, idProduct: string, state: boolean, title: string, description: string) {
         const newNotification = new this.notificationModel({
             idUser,
             idProduct,
             state,
             title,
-            description,
-            idUserBuyer,
+            description
         });
         const result = await newNotification.save();
         return result.id as string;
