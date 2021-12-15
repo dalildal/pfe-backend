@@ -6,7 +6,7 @@ export const NotificationSchema = new mongoose.Schema({
     state: { type: Boolean, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    idUserBuyer: { type: String, required: true },
+    idUserBuyer: { type: String },
 });
 
 export interface Notification extends mongoose.Document {

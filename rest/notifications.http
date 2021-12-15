@@ -5,9 +5,8 @@ Content-Type: application/json
     "idUser": "61b8fb8d0ad6f7ee709fbfc1",
     "idProduct": "61af4d49bfezfzeqfsfsdq",
     "state": false,
-    "title": "Notif vente' ",
-    "description": "Bla bla notif youhou test",
-    "idUserBuyer": "61b8a63ff2e6aa9a9eea668b"
+    "title": "Notif Validation SIUUUUUH' ",
+    "description": "Validation Modo"
     }
 
 ###
@@ -17,5 +16,5 @@ GET http://localhost:3000/notifications/61b8fb8d0ad6f7ee709fbfc1
 Content-Type: application/json
 ###
 
-PATCH http://localhost:3000/notifications/61b9b5c7c6be29933fab4a0c
+PATCH http://localhost:3000/notifications/61b9b6d3584d08c44b7ced80
 Content-Type: application/json
