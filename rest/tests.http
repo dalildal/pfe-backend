@@ -7,8 +7,12 @@ Content-Type: application/json
     "name": "jaezfazef",
     "lastname": "feaz",
     "campus": 43,
-    "email": "coczefezouiouifo@email.com",
-    "password": "12zefzSSSS3"
+    "email": "obey-senhaji@email.com",
+    "password": "azer",
+    "is_admin":false,
+    "is_active":true,
+    "url_profil_pic":"default.png"
+
 }
 
 ###
@@ -18,8 +22,8 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 { 
-    "email": "coczefezouiouifo@email.com",
-    "password": "12zefzSSSS3"
+    "email": "obey-senhaji@email.com",
+    "password": "azer"
 }
 
 ###
