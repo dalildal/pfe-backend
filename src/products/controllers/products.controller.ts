@@ -12,13 +12,16 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { GetProductsFilterDto } from '../dto/get-products-filter.dto';
 import { ProductsService } from '../services/products.service';
 import { Res, UseGuards } from '@nestjs/common';
+import { NotificationService } from 'src/notifications/services/notifications.service';
 
 
 @Controller('products')
 export class ProductsController {
-    constructor(private readonly productsService: ProductsService) { }
+    constructor(private readonly productsService: ProductsService,
+        private notificationService: NotificationService
 
-    @UseGuards(JwtAuthGuard)
+    ) { }
+
     @Post()
     async addProduct(
         @Body('idUser') prodIdUser: string,
@@ -39,6 +42,7 @@ export class ProductsController {
             prodAddress,
             new Array(),
         );
+        this.notificationService.createNotification(prodIdUser, generatedId, false, "Ajout produit", "Votre produit a été ajouté et est en attente de validation par un modérateur");
         return { id: generatedId };
     }
 
@@ -63,7 +67,7 @@ export class ProductsController {
         return this.productsService.getSingleProduct(prodId);
     }
 
-    @UseGuards(JwtAuthGuard)
+
     @Patch(':id')
     async updateProduct(
         @Param('id') prodId: string,
@@ -75,11 +79,16 @@ export class ProductsController {
         @Body('idCategory') prodIdCategory: string,
         @Body('address') prodAddress: string,
     ) {
-        await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory, prodAddress);
+        if (prodState === 'Valider') {
+            //TODO (Notify -> Votre annonce est validé)
+        }
+        if (prodState === '')
+            await this.productsService.updateProduct(prodId, prodIdUser, prodState, prodTitle, prodDesc, prodPrice, prodIdCategory, prodAddress);
+
         return null;
     }
 
-    @UseGuards(JwtAuthGuard)
+
     @Delete(':id')
     async removeProduct(@Param('id') prodId: string) {
         await this.productsService.deleteProduct(prodId);
@@ -92,7 +101,7 @@ export class ProductsController {
         res.sendFile(fileId, { root: "uploads/product-images" });
     }
 
-    @UseGuards(JwtAuthGuard)
+
     @Delete('product-images/:fileId/:productid')
     async deleteImage(@Param('fileId') fileId, @Param('productid') productId: any): Promise<any> {
         console.log(fileId);
