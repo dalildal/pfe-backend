@@ -11,7 +11,6 @@ export class UserController {
 
     constructor(private userService: UserService) { }
 
-    @UseGuards(JwtAuthGuard)
     @Get()
     async getUsers() {
         return await this.userService.getUsers();
@@ -46,9 +45,9 @@ export class UserController {
     @Post('login')
     async verifyUser(@Body() userDTO: LoginUserDto) {
         return (await this.userService.verify(userDTO)).pipe(
-            map(async (jwt:string) =>{
-                return{
-                    user : await this.userService.findUserByEmail(userDTO.email),
+            map(async (jwt: string) => {
+                return {
+                    user: await this.userService.findUserByEmail(userDTO.email),
                     access_token: jwt,
                     token_type: 'JWT',
                     exprires_in: 10000
