@@ -37,7 +37,7 @@ export class UserService {
     }
 
     getUser(id: string) {
-        this.userModel.findById
+        return this.userModel.findById(id)
     }
 
     async updateOneProfilPic(path: string, id: string) {
@@ -83,7 +83,8 @@ export class UserService {
         return user.id as string;
     }
 
-    private async findUserByEmail(email: string): Promise<User> {
+
+    public async findUserByEmail(email: string): Promise<User> {
         return await this.userModel.findOne({ email });
     }
 
