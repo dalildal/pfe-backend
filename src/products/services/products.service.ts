@@ -174,7 +174,7 @@ export class ProductsService {
     }
 
     async getProductsByIdUser(idUser: string) {
-        const products = await this.findAllProducts();
+        const products = await this.getProducts();
         const prod = Array();
         products.forEach(element => {
 
