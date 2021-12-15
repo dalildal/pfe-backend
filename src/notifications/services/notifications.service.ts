@@ -9,28 +9,36 @@ export class NotificationService {
     constructor(
         @InjectModel('Notification')
         private readonly notificationModel: Model<Notification>,
-        
+
     ) { }
 
-    async createNotification(idUser: string,idProduct: string, state: string, title: string,description: string) {
+    async createNotification(idUser: string, idProduct: string, state: boolean, title: string, description: string, idUserBuyer: string) {
         const newNotification = new this.notificationModel({
             idUser,
             idProduct,
             state,
             title,
             description,
+            idUserBuyer,
         });
         const result = await newNotification.save();
         return result.id as string;
     }
 
-    async getNotificationsByIdUser(idUser : string) {
+    async getNotificationsByIdUser(idUser: string) {
         const notifications = await this.findAllNotifications();
         notifications.filter(notifications => notifications.idUser = idUser)
         return notifications;
     }
 
+    async updateState(idNotif: string) {
+        const updatedNotif = await this.notificationModel.findById(idNotif);
+        updatedNotif.state = true;
+        updatedNotif.save();
+    }
+
     private async findAllNotifications() {
         return this.notificationModel.find().exec();
     }
+
 }
