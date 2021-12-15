@@ -26,9 +26,16 @@ export class NotificationService {
 
     async getNotificationsByIdUser(idUser: string) {
         const notifications = await this.findAllNotifications();
-        notifications.filter(notifications => notifications.idUser = idUser)
-        console.log(notifications);
-        return notifications;
+        const not = Array();
+        notifications.forEach(element => {
+
+            if (element.idUser === idUser) {
+                not.push(element);
+            }
+
+        });
+
+        return not;
     }
 
     async updateState(idUser: string) {
