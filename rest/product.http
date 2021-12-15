@@ -17,7 +17,7 @@ GET http://localhost:3000/products
 Content-Type: application/json
 ###
 
-GET http://localhost:3000/products/61b32cbe077d6f98f1d4130f
+GET http://localhost:3000/products/61b8ca28c7835b532d2cc0bc
 Content-Type: application/json
 ###
 

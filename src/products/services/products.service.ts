@@ -109,7 +109,8 @@ export class ProductsService {
             description: product.description,
             price: product.price,
             idCategory: product.idCategory,
-            liste: product.liste
+            liste: product.liste,
+            address: product.address
         };
     }
 
