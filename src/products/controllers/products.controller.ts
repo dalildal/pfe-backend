@@ -117,5 +117,9 @@ export class ProductsController {
         this.productsService.deleteImage(fileId, productId);
     }
 
+    @Get('productsUser/:idUser')
+    getProductsByIdUser(@Param('idUser') idUser: string) {
+        return this.productsService.getProductsByIdUser(idUser);
+    }
 
 }

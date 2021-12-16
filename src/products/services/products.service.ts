@@ -170,6 +170,20 @@ export class ProductsService {
         return product;
     }
     private async findAllProducts() {
-        return this.productModel.find().exec();
+        return await this.productModel.find().exec();
+    }
+
+    async getProductsByIdUser(idUser: string) {
+        const products = await this.findAllProducts();
+        const prod = Array();
+        products.forEach(element => {
+
+            if (element.idUser === idUser) {
+                prod.push(element);
+            }
+
+        });
+
+        return prod;
     }
 }
