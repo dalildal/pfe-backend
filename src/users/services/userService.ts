@@ -82,9 +82,10 @@ export class UserService {
         }
         const salt = await bcrypt.genSalt();
         newUser.password = await bcrypt.hash(newUser.password, salt);
-        if (newUser.url_profil_pic === null) {
-            newUser.url_profil_pic = 'default.jpg'
-        }
+        newUser.is_active=true;
+        newUser.is_admin=false;
+        newUser.url_profil_pic = 'default.jpg'
+        
         let user = await newUser.save();
         return user.id as string;
     }
