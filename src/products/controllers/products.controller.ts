@@ -67,7 +67,6 @@ export class ProductsController {
         return this.productsService.getSingleProduct(prodId);
     }
 
-
     @Patch(':id')
     async updateProduct(
         @Param('id') prodId: string,
